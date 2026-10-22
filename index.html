@@ -196,7 +196,7 @@
     .network-marker { display: grid; place-items: center; background: transparent; border: 0; }
     .network-dot { display: block; width: 11px; height: 11px; border: 0; border-radius: 50%; background: #E7E7E4; box-shadow: none; transition: transform 160ms ease; }
     .network-marker:hover .network-dot,.network-marker:focus-visible .network-dot { transform: scale(1.3); }
-    .network-marker.is-saved .network-dot { width: 13px; height: 13px; background: var(--network); box-shadow: none; }
+    .network-marker.is-saved .network-dot { width: 10px; height: 10px; background: var(--network); box-shadow: none; }
     .network-label.leaflet-tooltip { padding: 2px 5px; border: 0; border-radius: 2px; background: #1B1C1FEF; box-shadow: none; font: 500 11px/1.6 var(--font); color: var(--text); }
     .network-label.leaflet-tooltip:before { display: none; }
     .network-edge { stroke-linecap: round; }
@@ -219,7 +219,7 @@
     .popup-show { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 4px 12px; margin: 16px 0; }
     button.popup-detail { min-height: 24px; padding: 0; border: 0; border-radius: 0; background: none; color: var(--text); text-align: left; font-size: 13px; font-weight: 500; line-height: 1.5; }
     .popup-show .popup-date { grid-column: 1; color: var(--secondary); font-size: 12px; line-height: 1.6; }
-    .popup-save { grid-column: 2; grid-row: 1/3; display: grid; place-items: center; width: 44px; height: 44px; padding: 12px; border: 0; border-radius: 3px; background: var(--paper-soft); color: var(--secondary); }
+    .popup-save { grid-column: 2; grid-row: 1/4; display: grid; place-items: center; width: 44px; height: 44px; padding: 12px; border: 0; border-radius: 3px; background: var(--paper-soft); color: var(--secondary); }
     .popup-save svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.6; fill: none; }
     .popup-save[aria-pressed="true"] { color: var(--network); }
     .popup-save[aria-pressed="true"] svg { fill: currentColor; }
@@ -229,7 +229,7 @@
     #fallbackNetwork { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .fallback-pin { position: absolute; transform: translate(-50%,-50%); z-index: 3; width: 36px; height: 36px; padding: 0; border: 0; background: transparent; }
     .fallback-pin .network-dot { margin: auto; }
-    .fallback-pin.is-saved .network-dot { width: 13px; height: 13px; background: var(--network); box-shadow: none; }
+    .fallback-pin.is-saved .network-dot { width: 10px; height: 10px; background: var(--network); box-shadow: none; }
     .fallback-place-label { position: absolute; left: 28px; top: 9px; padding: 1px 4px; border-radius: 2px; background: #1B1C1FEF; color: var(--text); font: 500 11px/1.6 var(--font); white-space: nowrap; }
     .fallback-caption { position: absolute; z-index: 4; left: 16px; bottom: 112px; max-width: calc(100% - 32px); padding: 10px 12px; border-radius: 3px; background: var(--paper); color: var(--secondary); font-size: 11px; line-height: 1.6; pointer-events: none; }
     .fallback-popup { position: absolute; z-index: 460; top: 72px; left: 16px; width: min(310px,calc(100% - 32px)); padding: 20px; border: 1px solid #484C53; border-radius: 4px; background: var(--paper); }
@@ -393,7 +393,7 @@
     .intro-screen:focus-visible { outline-color: #E7E7E4; }
 
 
-    /* Preview 2.2 — circular places, starred saves and poster-ready popups. */
+    /* Preview 2.3 — circular places, starred saves and poster-ready popups. */
     .save svg,.popup-save svg,.saved-toggle svg { stroke-linejoin: round; stroke-linecap: round; }
     #detailSave { gap: 8px; }
     #detailSave svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.6; fill: none; stroke-linejoin: round; }
@@ -421,6 +421,18 @@
 @keyframes water-ring{to{width:540px;height:540px;opacity:0;}}
 @media(prefers-reduced-motion:reduce){.intro-screen{transition:none;}.water-ring{display:none;}}
 .popup-school{display:block;margin-top:4px;font-size:12px;font-weight:400;color:var(--secondary);line-height:1.5;}.popup-detail{overflow-wrap:anywhere;}.map-pending-label{font-size:12px;}.map-footer>span{max-width:80%;}.modal-data dd{white-space:pre-line;}
+
+/* Saved cards read as the light reverse of the dark archive. */
+.show-card.is-saved{background:#DEDFDB;}
+.show-card.is-saved:hover{background:#D4D6D1;}
+.show-card.is-saved .exhibition-title{color:#191B1F;}
+.show-card.is-saved .card-category,.show-card.is-saved .card-school,.show-card.is-saved .card-location,.show-card.is-saved .card-date{color:#4F535A;}
+.show-card.is-saved .save[aria-pressed="true"]{color:#B72D35;}
+.show-card.is-saved .save:hover{background:#C7CAC4;}
+.show-card.is-saved .card-open:focus-visible::after{outline-color:#191B1F;}
+.popup-show .popup-instagram{grid-column:1;display:block;width:fit-content;max-width:100%;margin-top:1px;color:var(--text);font-size:12px;line-height:1.6;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}
+.popup-show .popup-instagram.is-pending{color:var(--secondary);text-decoration:none;}
+@media(prefers-reduced-motion:reduce){.show-card{transition:none;}}
 </style>
 </head>
 <body>
@@ -480,7 +492,7 @@
       <div>
         <h2 id="exhibition-title">전시 목록</h2>
       </div>
-      <div class="result-count" role="status" aria-live="polite"><strong id="resultCount">50</strong>개의 전시</div>
+      <div class="result-count" role="status" aria-live="polite"><strong id="resultCount">64</strong>개의 전시</div>
     </div>
 
     <div class="filters">
@@ -518,7 +530,7 @@
     </div>
 
     <div class="cards" id="cards" aria-live="polite"></div>
-    <div class="bottom-note"><span>사용자 제공 영상 정리 시트를 반영했습니다. 전시별 확인 사항은 상세 정보에 표시합니다.</span><span>2026.10.22 · Preview 2.2</span></div>
+    <div class="bottom-note"><span>사용자 제공 영상 정리 시트를 반영했습니다. 전시별 확인 사항은 상세 정보에 표시합니다.</span><span>2026.10.22 · Preview 2.3 · 전시 목록 업데이트</span></div>
   </section>
 </main>
 
@@ -529,7 +541,7 @@
 <dialog id="detailDialog" aria-label="전시 상세 정보"><div class="modal-pad">
   <div class="modal-top"><span class="modal-kicker" id="detailCategory">EXHIBITION</span><button type="button" class="close" id="closeDialog" aria-label="닫기">×</button></div>
   <h3 class="modal-name" id="detailName"></h3>
-  <dl class="modal-data"><div><dt>학교·학과</dt><dd id="detailSchool"></dd></div><div><dt>전시 일정</dt><dd id="detailDate"></dd></div><div><dt>전시 장소</dt><dd id="detailPlace"></dd></div><div><dt>주소</dt><dd id="detailAddress"></dd></div><div><dt>분류</dt><dd id="detailType"></dd></div><div><dt>확인 사항</dt><dd id="detailNotes"></dd></div></dl>
+  <dl class="modal-data"><div><dt>학교·학과</dt><dd id="detailSchool"></dd></div><div><dt>전시 일정</dt><dd id="detailDate"></dd></div><div><dt>전시 장소</dt><dd id="detailPlace"></dd></div><div><dt>주소</dt><dd id="detailAddress"></dd></div><div><dt>분류</dt><dd id="detailType"></dd></div><div><dt>관람시간</dt><dd id="detailHours"></dd></div><div><dt>오프닝</dt><dd id="detailOpening"></dd></div><div><dt>확인 사항</dt><dd id="detailNotes"></dd></div></dl>
   <div class="modal-actions"><a class="primary-btn" id="detailGoogle" href="#" target="_blank" rel="noopener noreferrer">구글 지도에서 보기 ↗</a><button type="button" class="secondary-btn" id="detailSave">즐겨찾기 저장</button></div>
   <p class="modal-hint">※ 지도 좌표는 안내용입니다. 교내 실제 전시실과 관람 가능 시간은 방문 전 확인해 주세요.</p>
 </div></dialog>
@@ -656,12 +668,12 @@
     "end": "2026-11-01",
     "dateText": "2026-10-19 ~ 2026-11-01",
     "cardDate": "10.19–11.01",
-    "cardLocation": "가천대학교 비전타워 B1 갤러리",
-    "sourceRow": 22,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "cardLocation": "가천대학교 글로벌캠퍼스 비전타워 B1 101호 갤러리",
+    "sourceRow": 2,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "gachon",
-    "venue": "가천대학교 비전타워 B1 갤러리",
+    "venue": "가천대학교 글로벌캠퍼스 비전타워 B1 101호 갤러리",
     "address": "가천대학교 글로벌캠퍼스, 태평로82번길, 태평동, 수정구, 성남시, 경기도, 13285, 대한민국",
     "lat": 37.452798,
     "lng": 127.1337775,
@@ -670,16 +682,71 @@
     "sessions": [
       {
         "placeId": "gachon",
-        "venue": "가천대학교 비전타워 B1 갤러리",
+        "venue": "가천대학교 글로벌캠퍼스 비전타워 B1 101호 갤러리",
         "address": "가천대학교 글로벌캠퍼스, 태평로82번길, 태평동, 수정구, 성남시, 경기도, 13285, 대한민국",
         "lat": 37.452798,
         "lng": 127.1337775,
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/563534493",
         "start": "2026-10-19",
-        "end": "2026-11-01"
+        "end": "2026-11-01",
+        "label": "",
+        "hours": "매일 10:00–20:00; 11/01은 18:00 종료",
+        "opening": "2026-10-19 17:00",
+        "sourceRow": 2
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–20:00; 11/01은 18:00 종료",
+    "opening": "2026-10-19 17:00",
+    "sourceRows": [
+      2
     ]
+  },
+  {
+    "id": "new24-02",
+    "instagram": "",
+    "placeId": "hongik",
+    "venue": "홍익대학교 문헌관 4층 현대미술관",
+    "address": "서울특별시 마포구 와우산로 94",
+    "lat": 37.5515,
+    "lng": 126.9243,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "start": "2026-10-19",
+    "end": "2026-10-24",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 3,
+    "exhibitionTitle": "2026학년도 졸업전시 (개별 전시명 미확인)",
+    "school": "홍익대학교",
+    "department": "섬유미술패션디자인과",
+    "category": "패션",
+    "sessions": [
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 문헌관 4층 현대미술관",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-10-19",
+        "end": "2026-10-24",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 3
+      }
+    ],
+    "sourceRows": [
+      3
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "개별 전시 제목 미확인",
+    "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
+    "cardDate": "10.19–10.24",
+    "dateText": "2026-10-19 ~ 2026-10-24"
   },
   {
     "id": "sheet-46",
@@ -692,8 +759,8 @@
     "dateText": "2026-10-20 ~ 2026-10-27",
     "cardDate": "10.20–10.27",
     "cardLocation": "대구 섬유박물관 2층 기획전시실",
-    "sourceRow": 46,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 4,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "textile",
     "venue": "대구 섬유박물관 2층 기획전시실",
@@ -710,9 +777,64 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-10-20",
-        "end": "2026-10-27"
+        "end": "2026-10-27",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 4
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      4
     ]
+  },
+  {
+    "id": "new24-04",
+    "instagram": "",
+    "placeId": "kyonggi",
+    "lat": null,
+    "lng": null,
+    "address": "경기도 수원시 영통구 광교산로 154-52",
+    "accuracy": "좌표 확인 중",
+    "venue": "경기대학교 예술대학 호연갤러리 (경기도 수원시 영통구 광교산로 154-52)",
+    "start": "2026-10-21",
+    "end": "2026-10-25",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 5,
+    "exhibitionTitle": "LOOK UP",
+    "school": "경기대학교",
+    "department": "장신구·금속디자인전공",
+    "category": "금속",
+    "sessions": [
+      {
+        "placeId": "kyonggi",
+        "lat": null,
+        "lng": null,
+        "address": "경기도 수원시 영통구 광교산로 154-52",
+        "accuracy": "좌표 확인 중",
+        "venue": "경기대학교 예술대학 호연갤러리 (경기도 수원시 영통구 광교산로 154-52)",
+        "start": "2026-10-21",
+        "end": "2026-10-25",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 5
+      }
+    ],
+    "sourceRows": [
+      5
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "경기대학교 예술대학 호연갤러리 (경기도 수원시 영통구 광교산로 154-52)",
+    "cardDate": "10.21–10.25",
+    "dateText": "2026-10-21 ~ 2026-10-25"
   },
   {
     "id": "sheet-43",
@@ -725,12 +847,12 @@
     "dateText": "2026-10-21 ~ 2026-10-26",
     "cardDate": "10.21–10.26",
     "cardLocation": "동국대학교 문화관 지하 1층 동국갤러리",
-    "sourceRow": 43,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 6,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "dongguk",
     "venue": "동국대학교 문화관 지하 1층 동국갤러리",
-    "address": "동국대학교 서울캠퍼스, 30, 필동로1길, 필동3가, 장충동, 중구, 서울특별시, 04620, 대한민국",
+    "address": "서울 중구 필동로1길 30 문화관 지하 1층",
     "lat": 37.5582383,
     "lng": 126.9994886,
     "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
@@ -739,15 +861,72 @@
       {
         "placeId": "dongguk",
         "venue": "동국대학교 문화관 지하 1층 동국갤러리",
-        "address": "동국대학교 서울캠퍼스, 30, 필동로1길, 필동3가, 장충동, 중구, 서울특별시, 04620, 대한민국",
+        "address": "서울 중구 필동로1길 30 문화관 지하 1층",
         "lat": 37.5582383,
         "lng": 126.9994886,
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/268230784",
         "start": "2026-10-21",
-        "end": "2026-10-26"
+        "end": "2026-10-26",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 6
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      6
     ]
+  },
+  {
+    "id": "new24-06",
+    "instagram": "",
+    "placeId": "hongik-daehakro",
+    "venue": "홍익대학교 대학로 아트센터 B2F 제3전시실 (서울 종로구 대학로 57)",
+    "address": "서울 종로구 대학로 57",
+    "lat": 37.5765909,
+    "lng": 127.0016042,
+    "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
+    "coordinateSource": "https://www.openstreetmap.org/node/13805210387",
+    "start": "2026-10-21",
+    "end": "2026-10-25",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 7,
+    "exhibitionTitle": "꾹 : PRESS OUR MARK",
+    "school": "인천대학교",
+    "department": "디자인학부",
+    "category": "디자인",
+    "sessions": [
+      {
+        "placeId": "hongik-daehakro",
+        "venue": "홍익대학교 대학로 아트센터 B2F 제3전시실 (서울 종로구 대학로 57)",
+        "address": "서울 종로구 대학로 57",
+        "lat": 37.5765909,
+        "lng": 127.0016042,
+        "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
+        "coordinateSource": "https://www.openstreetmap.org/node/13805210387",
+        "start": "2026-10-21",
+        "end": "2026-10-25",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 7
+      }
+    ],
+    "sourceRows": [
+      7
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "홍익대학교 대학로 아트센터 B2F 제3전시실 (서울 종로구 대학로 57)",
+    "cardDate": "10.21–10.25",
+    "dateText": "2026-10-21 ~ 2026-10-25"
   },
   {
     "id": "ewha",
@@ -760,8 +939,8 @@
     "dateText": "2026-10-27 ~ 2026-11-22",
     "cardDate": "10.27–11.22",
     "cardLocation": "이화여자대학교 조형예술관 A동 1층 로비·2층 이화아트센터",
-    "sourceRow": 36,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 8,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "ewha",
     "venue": "이화여자대학교 조형예술관 A동 1층 로비·2층 이화아트센터",
@@ -778,23 +957,34 @@
         "lng": 126.9469,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-10-27",
-        "end": "2026-11-22"
+        "end": "2026-11-22",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 8
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      8
     ]
   },
   {
     "id": "sheet-20",
     "exhibitionTitle": "COEXIST",
     "school": "홍익대학교",
-    "department": "산업디자인학과",
+    "department": "디자인학부 산업디자인전공",
     "category": "디자인",
     "start": "2026-10-27",
     "end": "2026-10-31",
     "dateText": "2026-10-27 ~ 2026-10-31",
     "cardDate": "10.27–10.31",
     "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
-    "sourceRow": 20,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 9,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "hongik",
     "venue": "홍익대학교 문헌관 4층 현대미술관",
@@ -811,8 +1001,19 @@
         "lng": 126.9243,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-10-27",
-        "end": "2026-10-31"
+        "end": "2026-10-31",
+        "label": "",
+        "hours": "10/27 14:00–20:00; 10/28–30 10:00–20:00; 10/31 10:00–14:00",
+        "opening": "2026-10-27 14:00",
+        "sourceRow": 9
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "10/27 14:00–20:00; 10/28–30 10:00–20:00; 10/31 10:00–14:00",
+    "opening": "2026-10-27 14:00",
+    "sourceRows": [
+      9
     ]
   },
   {
@@ -826,9 +1027,9 @@
     "dateText": "2026-10-28 ~ 2026-11-02",
     "cardDate": "10.28–11.02",
     "cardLocation": "마루아트센터 그랜드관",
-    "sourceRow": 2,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "",
+    "sourceRow": 10,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "오프닝은 관계자 대상",
     "placeId": "maru",
     "venue": "마루아트센터 그랜드관",
     "address": "서울특별시 종로구 인사동길 35-6",
@@ -844,8 +1045,19 @@
         "lng": 126.9852,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-10-28",
-        "end": "2026-11-02"
+        "end": "2026-11-02",
+        "label": "",
+        "hours": "매일 10:30–18:30",
+        "opening": "2026-10-28 18:00",
+        "sourceRow": 10
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:30–18:30",
+    "opening": "2026-10-28 18:00",
+    "sourceRows": [
+      10
     ]
   },
   {
@@ -859,8 +1071,8 @@
     "dateText": "2026-10-28 ~ 2026-11-02",
     "cardDate": "10.28–11.02",
     "cardLocation": "갤러리동국 (서울 중구 필동로1길 30 문화관 지하 1층)",
-    "sourceRow": 18,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 11,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "dongguk",
     "venue": "갤러리동국 (서울 중구 필동로1길 30 문화관 지하 1층)",
@@ -879,8 +1091,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/268230784",
         "start": "2026-10-28",
-        "end": "2026-11-02"
+        "end": "2026-11-02",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 11
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      11
     ]
   },
   {
@@ -894,8 +1117,8 @@
     "dateText": "2026-10-28 ~ 2026-11-01",
     "cardDate": "10.28–11.01",
     "cardLocation": "NOL 서경스퀘어 B1 스콘갤러리 (서울 종로구 동숭길 148)",
-    "sourceRow": 33,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 12,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "seokyeong",
     "venue": "NOL 서경스퀘어 B1 스콘갤러리 (서울 종로구 동숭길 148)",
@@ -912,9 +1135,110 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-10-28",
-        "end": "2026-11-01"
+        "end": "2026-11-01",
+        "label": "",
+        "hours": "매일 10:00–18:00",
+        "opening": "2026-10-28 17:00",
+        "sourceRow": 12
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–18:00",
+    "opening": "2026-10-28 17:00",
+    "sourceRows": [
+      12
     ]
+  },
+  {
+    "id": "new24-12",
+    "instagram": "",
+    "placeId": "maru",
+    "venue": "마루아트센터 2·3관 (서울 종로구 인사동길 35-6)",
+    "address": "서울 종로구 인사동길 35-6",
+    "lat": 37.5733,
+    "lng": 126.9852,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "start": "2026-10-28",
+    "end": "2026-11-02",
+    "label": "도자전공",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 13,
+    "exhibitionTitle": "전통을 전하다",
+    "school": "한국전통문화대학교",
+    "department": "전통미술공예학과 도자전공",
+    "category": "도예",
+    "sessions": [
+      {
+        "placeId": "maru",
+        "venue": "마루아트센터 2·3관 (서울 종로구 인사동길 35-6)",
+        "address": "서울 종로구 인사동길 35-6",
+        "lat": 37.5733,
+        "lng": 126.9852,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-10-28",
+        "end": "2026-11-02",
+        "label": "도자전공",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 13
+      }
+    ],
+    "sourceRows": [
+      13
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "마루아트센터 2·3관 (서울 종로구 인사동길 35-6)",
+    "cardDate": "10.28–11.02",
+    "dateText": "도자전공 2026-10-28 ~ 2026-11-02"
+  },
+  {
+    "id": "new24-13",
+    "instagram": "",
+    "placeId": "chungmu",
+    "lat": 37.5656896,
+    "lng": 127.0147355,
+    "address": "충무아트센터, 387, 퇴계로, 무학동, 2통, 신당동, 중구, 서울특별시, 04569, 대한민국",
+    "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+    "venue": "충무아트센터 갤러리 G1",
+    "coordinateSource": "https://www.openstreetmap.org/way/400847810",
+    "start": "2026-10-28",
+    "end": "2026-11-04",
+    "label": "회화전공",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 14,
+    "exhibitionTitle": "전통을 전하다",
+    "school": "한국전통문화대학교",
+    "department": "전통미술공예학과 회화전공",
+    "category": "회화",
+    "sessions": [
+      {
+        "placeId": "chungmu",
+        "lat": 37.5656896,
+        "lng": 127.0147355,
+        "address": "충무아트센터, 387, 퇴계로, 무학동, 2통, 신당동, 중구, 서울특별시, 04569, 대한민국",
+        "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+        "venue": "충무아트센터 갤러리 G1",
+        "coordinateSource": "https://www.openstreetmap.org/way/400847810",
+        "start": "2026-10-28",
+        "end": "2026-11-04",
+        "label": "회화전공",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 14
+      }
+    ],
+    "sourceRows": [
+      14
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "충무아트센터 갤러리 G1",
+    "cardDate": "10.28–11.04",
+    "dateText": "회화전공 2026-10-28 ~ 2026-11-04"
   },
   {
     "id": "sheet-50",
@@ -927,8 +1251,8 @@
     "dateText": "2026-10-28 ~ 2026-11-01",
     "cardDate": "10.28–11.01",
     "cardLocation": "홍익대학교 대학로 아트센터 B1 전시장",
-    "sourceRow": 50,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 15,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "hongik-daehakro",
     "venue": "홍익대학교 대학로 아트센터 B1 전시장",
@@ -947,8 +1271,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/13805210387",
         "start": "2026-10-28",
-        "end": "2026-11-01"
+        "end": "2026-11-01",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 15
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      15
     ]
   },
   {
@@ -962,8 +1297,8 @@
     "dateText": "2026-10-29 ~ 2026-11-02",
     "cardDate": "10.29–11.02",
     "cardLocation": "동덕여자대학교 디자인연구센터 (서울 강남구 삼성로 762)",
-    "sourceRow": 28,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 16,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "dongduk-design",
     "venue": "동덕여자대학교 디자인연구센터 (서울 강남구 삼성로 762)",
@@ -982,8 +1317,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/1144354200",
         "start": "2026-10-29",
-        "end": "2026-11-02"
+        "end": "2026-11-02",
+        "label": "",
+        "hours": "매일 10:00–18:00",
+        "opening": "",
+        "sourceRow": 16
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–18:00",
+    "opening": "",
+    "sourceRows": [
+      16
     ]
   },
   {
@@ -996,13 +1342,13 @@
     "end": "2026-11-02",
     "dateText": "2026-10-30 ~ 2026-11-02",
     "cardDate": "10.30–11.02",
-    "cardLocation": "홍익대학교 대학로 아트센터 B2 제3전시장",
-    "sourceRow": 49,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "표제에는 2027이 쓰여 있으나 시트에 기록된 개최일은 2026년입니다.",
+    "cardLocation": "홍익대학교 대학로 아트센터 B2 제3전시장 (서울 종로구 대학로 57)",
+    "sourceRow": 17,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
     "placeId": "hongik-daehakro",
-    "venue": "홍익대학교 대학로 아트센터 B2 제3전시장",
-    "address": "홍익대 대학로 아트센터 대극장, 57, 대학로, 연건동, 이화동, 종로구, 서울특별시, 03100, 대한민국",
+    "venue": "홍익대학교 대학로 아트센터 B2 제3전시장 (서울 종로구 대학로 57)",
+    "address": "서울 종로구 대학로 57",
     "lat": 37.5765909,
     "lng": 127.0016042,
     "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
@@ -1010,15 +1356,26 @@
     "sessions": [
       {
         "placeId": "hongik-daehakro",
-        "venue": "홍익대학교 대학로 아트센터 B2 제3전시장",
-        "address": "홍익대 대학로 아트센터 대극장, 57, 대학로, 연건동, 이화동, 종로구, 서울특별시, 03100, 대한민국",
+        "venue": "홍익대학교 대학로 아트센터 B2 제3전시장 (서울 종로구 대학로 57)",
+        "address": "서울 종로구 대학로 57",
         "lat": 37.5765909,
         "lng": 127.0016042,
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/13805210387",
         "start": "2026-10-30",
-        "end": "2026-11-02"
+        "end": "2026-11-02",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 17
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      17
     ]
   },
   {
@@ -1032,9 +1389,9 @@
     "dateText": "2026-10-30 ~ 2026-11-03",
     "cardDate": "10.30–11.03",
     "cardLocation": "국립부경대학교 핵심역량도서관 1층 갤러리 라운지",
-    "sourceRow": 25,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "",
+    "sourceRow": 18,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "관람시간 별도 미기재",
     "placeId": "pknu",
     "venue": "국립부경대학교 핵심역량도서관 1층 갤러리 라운지",
     "address": "주소 확인 중",
@@ -1050,8 +1407,19 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-10-30",
-        "end": "2026-11-03"
+        "end": "2026-11-03",
+        "label": "",
+        "hours": "",
+        "opening": "2026-10-30 16:00–17:00",
+        "sourceRow": 18
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "2026-10-30 16:00–17:00",
+    "sourceRows": [
+      18
     ]
   },
   {
@@ -1065,8 +1433,8 @@
     "dateText": "2026-10-30 ~ 2026-11-04",
     "cardDate": "10.30–11.04",
     "cardLocation": "스페이스 소포라 갤러리 (서울 중구 덕수궁길 114 B1)",
-    "sourceRow": 42,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 19,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "sopora",
     "venue": "스페이스 소포라 갤러리 (서울 중구 덕수궁길 114 B1)",
@@ -1085,8 +1453,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/13805210338",
         "start": "2026-10-30",
-        "end": "2026-11-04"
+        "end": "2026-11-04",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 19
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      19
     ]
   },
   {
@@ -1100,8 +1479,8 @@
     "dateText": "2026-11-02 ~ 2026-11-16",
     "cardDate": "11.02–11.16",
     "cardLocation": "국민대학교 예술관 2층 국민 아트스페이스",
-    "sourceRow": 45,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 20,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "kookmin",
     "venue": "국민대학교 예술관 2층 국민 아트스페이스",
@@ -1120,8 +1499,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/173018858",
         "start": "2026-11-02",
-        "end": "2026-11-16"
+        "end": "2026-11-16",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 20
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      20
     ]
   },
   {
@@ -1135,8 +1525,8 @@
     "dateText": "2026-11-02 ~ 2026-11-07",
     "cardDate": "11.02–11.07",
     "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
-    "sourceRow": 35,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 21,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "hongik",
     "venue": "홍익대학교 문헌관 4층 현대미술관",
@@ -1153,8 +1543,19 @@
         "lng": 126.9243,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-11-02",
-        "end": "2026-11-07"
+        "end": "2026-11-07",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 21
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      21
     ]
   },
   {
@@ -1168,8 +1569,8 @@
     "dateText": "2026-11-03 ~ 2026-11-08",
     "cardDate": "11.03–11.08",
     "cardLocation": "성균관대학교 인문사회과학캠퍼스 경영관 1층 성균갤러리",
-    "sourceRow": 7,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 22,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "skku",
     "venue": "성균관대학교 인문사회과학캠퍼스 경영관 1층 성균갤러리",
@@ -1188,8 +1589,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/75546222",
         "start": "2026-11-03",
-        "end": "2026-11-08"
+        "end": "2026-11-08",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 22
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      22
     ]
   },
   {
@@ -1203,8 +1615,8 @@
     "dateText": "2026-11-03 ~ 2026-11-08",
     "cardDate": "11.03–11.08",
     "cardLocation": "성신여자대학교 수정관 1층 가온전시실 / 난향관 4층 파이룸 (서울 성북구 보문로34다길 2)",
-    "sourceRow": 9,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 23,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "sungshin",
     "venue": "성신여자대학교 수정관 1층 가온전시실 / 난향관 4층 파이룸 (서울 성북구 보문로34다길 2)",
@@ -1223,8 +1635,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/26323743",
         "start": "2026-11-03",
-        "end": "2026-11-08"
+        "end": "2026-11-08",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 23
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      23
     ]
   },
   {
@@ -1238,12 +1661,12 @@
     "dateText": "2026-11-03 ~ 2026-11-08",
     "cardDate": "11.03–11.08",
     "cardLocation": "천마아트센터 B1 갤러리관 (경북 경산시 대학로 280)",
-    "sourceRow": 32,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 24,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "yeungnam",
     "venue": "천마아트센터 B1 갤러리관 (경북 경산시 대학로 280)",
-    "address": "천마아트센터, 계양로, 임당동, 북부동, 경산시, 경상북도, 38616, 대한민국",
+    "address": "경북 경산시 대학로 280",
     "lat": 35.8322237,
     "lng": 128.7530754,
     "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
@@ -1252,47 +1675,25 @@
       {
         "placeId": "yeungnam",
         "venue": "천마아트센터 B1 갤러리관 (경북 경산시 대학로 280)",
-        "address": "천마아트센터, 계양로, 임당동, 북부동, 경산시, 경상북도, 38616, 대한민국",
+        "address": "경북 경산시 대학로 280",
         "lat": 35.8322237,
         "lng": 128.7530754,
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/153003650",
         "start": "2026-11-03",
-        "end": "2026-11-08"
+        "end": "2026-11-08",
+        "label": "",
+        "hours": "매일 10:00–19:00",
+        "opening": "2026-11-03 18:00",
+        "sourceRow": 24
       }
-    ]
-  },
-  {
-    "id": "sheet-34",
-    "exhibitionTitle": "0°, 영점을 조정하라",
-    "school": "건국대학교 글로벌캠퍼스",
-    "department": "조형예술학과",
-    "category": "회화",
-    "start": "2026-11-04",
-    "end": "2026-11-09",
-    "dateText": "2026-11-04 ~ 2026-11-09",
-    "cardDate": "11.04–11.09",
-    "cardLocation": "마루아트센터 B1 특별관",
-    "sourceRow": 34,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "",
-    "placeId": "maru",
-    "venue": "마루아트센터 B1 특별관",
-    "address": "서울특별시 종로구 인사동길 35-6",
-    "lat": 37.5733,
-    "lng": 126.9852,
-    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
-    "sessions": [
-      {
-        "placeId": "maru",
-        "venue": "마루아트센터 B1 특별관",
-        "address": "서울특별시 종로구 인사동길 35-6",
-        "lat": 37.5733,
-        "lng": 126.9852,
-        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
-        "start": "2026-11-04",
-        "end": "2026-11-09"
-      }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–19:00",
+    "opening": "2026-11-03 18:00",
+    "sourceRows": [
+      24
     ]
   },
   {
@@ -1306,9 +1707,9 @@
     "dateText": "2026-11-04 ~ 2026-11-09",
     "cardDate": "11.04–11.09",
     "cardLocation": "동덕아트갤러리 (서울 종로구 우정국로 68 동덕빌딩 B1)",
-    "sourceRow": 19,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "영상 내 시작일이 11월 3일과 4일로 서로 다릅니다. 시트 기준인 11월 4일을 사용했으며, 게시 전 공식 공지 확인이 필요합니다.",
+    "sourceRow": 25,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "첨부 이미지 기준 전시 시작일 11/04로 교정",
     "placeId": "dongduk-gallery",
     "venue": "동덕아트갤러리 (서울 종로구 우정국로 68 동덕빌딩 B1)",
     "address": "서울 종로구 우정국로 68 동덕빌딩 B1",
@@ -1326,39 +1727,63 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/13955675096",
         "start": "2026-11-04",
-        "end": "2026-11-09"
+        "end": "2026-11-09",
+        "label": "",
+        "hours": "매일 10:00–18:00",
+        "opening": "",
+        "sourceRow": 25
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–18:00",
+    "opening": "",
+    "sourceRows": [
+      25
     ]
   },
   {
-    "id": "khud",
-    "school": "경희대",
-    "department": "시각디자인",
-    "category": "디자인",
+    "id": "sheet-34",
+    "exhibitionTitle": "0°, 영점을 조정하라",
+    "school": "건국대학교 글로벌캠퍼스",
+    "department": "조형예술학과",
+    "category": "회화",
     "start": "2026-11-04",
-    "end": "2026-11-08",
-    "venue": "경희대학교 국제캠퍼스 (세부 건물 확인 필요)",
-    "cardLocation": "경기 용인시 · 국제캠퍼스",
-    "address": "경기도 용인시 기흥구 덕영대로 1732",
-    "placeId": "khu",
-    "lat": 37.2414,
-    "lng": 127.0808,
-    "accuracy": "캠퍼스 대표 위치",
-    "exhibitionTitle": "",
-    "notes": "기존 입력 자료입니다. 이번 영상 정리 시트에 없으며 전시명과 세부 장소 확인이 필요합니다.",
-    "source": "기존 프리뷰 입력 자료",
-    "dateText": "2026-11-04 ~ 2026-11-08",
+    "end": "2026-11-09",
+    "dateText": "2026-11-04 ~ 2026-11-09",
+    "cardDate": "11.04–11.09",
+    "cardLocation": "마루아트센터 B1 특별관",
+    "sourceRow": 26,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "상세 포스터에는 종료 18:30, 안내 캡션에는 18:00으로 기재되어 확인 필요",
+    "placeId": "maru",
+    "venue": "마루아트센터 B1 특별관",
+    "address": "서울특별시 종로구 인사동길 35-6",
+    "lat": 37.5733,
+    "lng": 126.9852,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
     "sessions": [
       {
-        "venue": "경희대학교 국제캠퍼스 (세부 건물 확인 필요)",
-        "address": "경기도 용인시 기흥구 덕영대로 1732",
-        "placeId": "khu",
-        "lat": 37.2414,
-        "lng": 127.0808,
-        "accuracy": "캠퍼스 대표 위치",
+        "placeId": "maru",
+        "venue": "마루아트센터 B1 특별관",
+        "address": "서울특별시 종로구 인사동길 35-6",
+        "lat": 37.5733,
+        "lng": 126.9852,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-11-04",
-        "end": "2026-11-08"
+        "end": "2026-11-09",
+        "label": "",
+        "hours": "매일 10:30–18:00",
+        "opening": "",
+        "sourceRow": 26
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:30–18:00",
+    "opening": "",
+    "sourceRows": [
+      26
     ]
   },
   {
@@ -1372,8 +1797,8 @@
     "dateText": "2026-11-04 ~ 2026-11-09",
     "cardDate": "11.04–11.09",
     "cardLocation": "라메르 갤러리 3·4관 (서울 종로구 관훈동 195-3)",
-    "sourceRow": 21,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 27,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "시트에는 관훈동 195-3으로 기재되어 있으나 현재 공개된 갤러리 라메르 안내 주소와 차이가 있어, 전시 장소 좌표는 확인 후 반영합니다.",
     "placeId": "lamer",
     "venue": "라메르 갤러리 3·4관 (서울 종로구 관훈동 195-3)",
@@ -1390,9 +1815,64 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-11-04",
-        "end": "2026-11-09"
+        "end": "2026-11-09",
+        "label": "",
+        "hours": "매일 10:30–18:00",
+        "opening": "2026-11-04 17:00",
+        "sourceRow": 27
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:30–18:00",
+    "opening": "2026-11-04 17:00",
+    "sourceRows": [
+      27
     ]
+  },
+  {
+    "id": "khud",
+    "school": "경희대학교",
+    "department": "시각디자인학과",
+    "category": "디자인",
+    "start": "2026-11-04",
+    "end": "2026-11-08",
+    "venue": "경희대학교 국제캠퍼스 예술디자인대학 2층 A&D홀",
+    "cardLocation": "경희대학교 국제캠퍼스 예술디자인대학 2층 A&D홀",
+    "address": "경기도 용인시 기흥구 덕영대로 1732",
+    "placeId": "khu",
+    "lat": 37.2414,
+    "lng": 127.0808,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "exhibitionTitle": "깊이를 만들고 단단해지는 것들",
+    "notes": "",
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "dateText": "2026-11-04 ~ 2026-11-08",
+    "sessions": [
+      {
+        "placeId": "khu",
+        "venue": "경희대학교 국제캠퍼스 예술디자인대학 2층 A&D홀",
+        "address": "경기도 용인시 기흥구 덕영대로 1732",
+        "lat": 37.2414,
+        "lng": 127.0808,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-11-04",
+        "end": "2026-11-08",
+        "label": "",
+        "hours": "매일 10:00–20:00",
+        "opening": "2026-11-04 17:30",
+        "sourceRow": 28
+      }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–20:00",
+    "opening": "2026-11-04 17:30",
+    "sourceRow": 28,
+    "sourceRows": [
+      28
+    ],
+    "cardDate": "11.04–11.08"
   },
   {
     "id": "sheet-15",
@@ -1401,13 +1881,13 @@
     "department": "산업디자인학과",
     "category": "디자인",
     "start": "2026-11-05",
-    "end": "2026-11-08",
-    "dateText": "전시1 2026-11-05 ~ 2026-11-08; 전시2 일정 확인 필요",
-    "cardDate": "전시1 11.05–11.08; 전시2 일정 확인 필요",
-    "cardLocation": "전시1: 홍익대학교 대학로 아트센터 갤러리 B1 / 전시2: 건국대학교 글로벌캠퍼스 글로컬 이음관",
-    "sourceRow": 15,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "전시 2 일정은 영상에서 가려져 확인되지 않았습니다. 일정 필터에는 확인된 전시 1만 반영합니다. 표제의 2027 표기와 달리 시트 개최일은 2026년입니다.",
+    "end": "2026-11-13",
+    "dateText": "1차 2026-11-05 ~ 2026-11-08\n2차 2026-11-10 ~ 2026-11-13",
+    "cardDate": "1차 11.05–11.08 / 2차 11.10–11.13",
+    "cardLocation": "홍익대학교 대학로 아트센터 갤러리 B1 / 건국대학교 글로벌캠퍼스 글로컬 이음관 상허 제1·2전시관",
+    "sourceRow": 29,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
     "placeId": "hongik-daehakro",
     "venue": "홍익대학교 대학로 아트센터 갤러리 B1",
     "address": "홍익대 대학로 아트센터 대극장, 57, 대학로, 연건동, 이화동, 종로구, 서울특별시, 03100, 대한민국",
@@ -1426,20 +1906,34 @@
         "coordinateSource": "https://www.openstreetmap.org/node/13805210387",
         "start": "2026-11-05",
         "end": "2026-11-08",
-        "label": "전시 1"
+        "label": "1차",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 29
       },
       {
         "placeId": "konkuk-glocal",
-        "venue": "건국대학교 글로벌캠퍼스 글로컬 이음관",
+        "venue": "건국대학교 글로벌캠퍼스 글로컬 이음관 상허 제1·2전시관",
         "address": "건국대학교 글로컬캠퍼스, 268, 충원대로, 단월동, 충주시, 충청북도, 27478, 대한민국",
         "lat": 36.949557,
         "lng": 127.908607,
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/relation/15575865",
-        "start": null,
-        "end": null,
-        "label": "전시 2"
+        "start": "2026-11-10",
+        "end": "2026-11-13",
+        "label": "2차",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 36
       }
+    ],
+    "instagram": "",
+    "label": "1차",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      29,
+      36
     ]
   },
   {
@@ -1453,8 +1947,8 @@
     "dateText": "2026-11-05 ~ 2026-11-10",
     "cardDate": "11.05–11.10",
     "cardLocation": "국민대학교 조형관 조형갤러리 1층 전체",
-    "sourceRow": 48,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 30,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "kookmin",
     "venue": "국민대학교 조형관 조형갤러리 1층 전체",
@@ -1473,8 +1967,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/173018858",
         "start": "2026-11-05",
-        "end": "2026-11-10"
+        "end": "2026-11-10",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 30
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      30
     ]
   },
   {
@@ -1488,8 +1993,8 @@
     "dateText": "2026-11-05 ~ 2026-11-09",
     "cardDate": "11.05–11.09",
     "cardLocation": "모나코 스페이스 (서울 서초구 서초대로 397 부띠크모나코 지하 1층)",
-    "sourceRow": 24,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 31,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "monaco",
     "venue": "모나코 스페이스 (서울 서초구 서초대로 397 부띠크모나코 지하 1층)",
@@ -1508,8 +2013,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/relation/19640833",
         "start": "2026-11-05",
-        "end": "2026-11-09"
+        "end": "2026-11-09",
+        "label": "",
+        "hours": "매일 11:00–20:00",
+        "opening": "2026-11-05 18:00",
+        "sourceRow": 31
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 11:00–20:00",
+    "opening": "2026-11-05 18:00",
+    "sourceRows": [
+      31
     ]
   },
   {
@@ -1523,8 +2039,8 @@
     "dateText": "2026-11-06 ~ 2026-11-08",
     "cardDate": "11.06–11.08",
     "cardLocation": "부산디자인진흥원 1층 전시실",
-    "sourceRow": 39,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 32,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "busan-design",
     "venue": "부산디자인진흥원 1층 전시실",
@@ -1543,8 +2059,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/10038288537",
         "start": "2026-11-06",
-        "end": "2026-11-08"
+        "end": "2026-11-08",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 32
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      32
     ]
   },
   {
@@ -1558,9 +2085,9 @@
     "dateText": "2026-11-07 ~ 2026-11-09",
     "cardDate": "11.07–11.09",
     "cardLocation": "언더스탠드에비뉴 (서울 성동구 왕십리로 63)",
-    "sourceRow": 31,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "",
+    "sourceRow": 33,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "포스터에는 11/06–11/09, 안내 캡션에는 11/07–11/09로 기간 상충. 기존 캡션 기준 유지, 확인 필요",
     "placeId": "understand",
     "venue": "언더스탠드에비뉴 (서울 성동구 왕십리로 63)",
     "address": "서울 성동구 왕십리로 63",
@@ -1578,8 +2105,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/4398376389",
         "start": "2026-11-07",
-        "end": "2026-11-09"
+        "end": "2026-11-09",
+        "label": "",
+        "hours": "매일 10:00–21:00",
+        "opening": "2026-11-06 17:00",
+        "sourceRow": 33
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–21:00",
+    "opening": "2026-11-06 17:00",
+    "sourceRows": [
+      33
     ]
   },
   {
@@ -1593,8 +2131,8 @@
     "dateText": "2026-11-09 ~ 2026-11-14",
     "cardDate": "11.09–11.14",
     "cardLocation": "충남대학교 예술대학 미술관 B1 백마아트홀",
-    "sourceRow": 27,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 34,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "cnu",
     "venue": "충남대학교 예술대학 미술관 B1 백마아트홀",
@@ -1613,8 +2151,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/595714139",
         "start": "2026-11-09",
-        "end": "2026-11-14"
+        "end": "2026-11-14",
+        "label": "",
+        "hours": "매일 09:00–18:00",
+        "opening": "2026-11-09 17:00",
+        "sourceRow": 34
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 09:00–18:00",
+    "opening": "2026-11-09 17:00",
+    "sourceRows": [
+      34
     ]
   },
   {
@@ -1628,8 +2177,8 @@
     "dateText": "2026-11-09 ~ 2026-11-14",
     "cardDate": "11.09–11.14",
     "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
-    "sourceRow": 44,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 35,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "hongik",
     "venue": "홍익대학교 문헌관 4층 현대미술관",
@@ -1646,8 +2195,19 @@
         "lng": 126.9243,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-11-09",
-        "end": "2026-11-14"
+        "end": "2026-11-14",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 35
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      35
     ]
   },
   {
@@ -1658,11 +2218,11 @@
     "category": "공예",
     "start": "2026-11-10",
     "end": "2026-11-23",
-    "dateText": "1차 2026-11-10 ~ 2026-11-17; 2차 2026-11-19 ~ 2026-11-23",
-    "cardDate": "1차 11.10–11.17; 2차 11.19–11.23",
-    "cardLocation": "1차: 상명대학교 서울캠퍼스 미래백년관 B1 월해갤러리 / 2차: 더서울라이팅룸 제1관",
-    "sourceRow": 40,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "dateText": "1차 2026-11-10 ~ 2026-11-17\n2차 2026-11-19 ~ 2026-11-23",
+    "cardDate": "1차 11.10–11.17 / 2차 11.19–11.23",
+    "cardLocation": "상명대학교 서울캠퍼스 미래백년관 B1 월해갤러리 / 더서울라이티움 제1관",
+    "sourceRow": 37,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "sangmyung",
     "venue": "상명대학교 서울캠퍼스 미래백년관 B1 월해갤러리",
@@ -1682,20 +2242,125 @@
         "coordinateSource": "https://www.openstreetmap.org/node/368650195",
         "start": "2026-11-10",
         "end": "2026-11-17",
-        "label": "1차"
+        "label": "1차",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 37
       },
       {
         "placeId": "lightingroom",
-        "venue": "더서울라이팅룸 제1관",
-        "address": "주소 확인 중",
-        "lat": null,
-        "lng": null,
-        "accuracy": "좌표 확인 중",
+        "venue": "더서울라이티움 제1관",
+        "address": "더서울라이티움, 32-14, 서울숲2길, 성수1가2동, 성동구, 서울특별시, 04769, 대한민국",
+        "lat": 37.545749,
+        "lng": 127.0426796,
+        "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+        "coordinateSource": "https://www.openstreetmap.org/way/473812531",
         "start": "2026-11-19",
         "end": "2026-11-23",
-        "label": "2차"
+        "label": "2차",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 49
       }
+    ],
+    "instagram": "",
+    "label": "1차",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      37,
+      49
     ]
+  },
+  {
+    "id": "new24-36",
+    "instagram": "",
+    "placeId": "byeolgung",
+    "lat": null,
+    "lng": null,
+    "address": "주소 확인 중",
+    "accuracy": "좌표 확인 중",
+    "venue": "한국전통문화대학교 안국동 별궁",
+    "start": "2026-11-10",
+    "end": "2026-11-16",
+    "label": "섬유전공",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 38,
+    "exhibitionTitle": "전통을 전하다",
+    "school": "한국전통문화대학교",
+    "department": "전통미술공예학과 섬유전공",
+    "category": "패션",
+    "sessions": [
+      {
+        "placeId": "byeolgung",
+        "lat": null,
+        "lng": null,
+        "address": "주소 확인 중",
+        "accuracy": "좌표 확인 중",
+        "venue": "한국전통문화대학교 안국동 별궁",
+        "start": "2026-11-10",
+        "end": "2026-11-16",
+        "label": "섬유전공",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 38
+      }
+    ],
+    "sourceRows": [
+      38
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "한국전통문화대학교 안국동 별궁",
+    "cardDate": "11.10–11.16",
+    "dateText": "섬유전공 2026-11-10 ~ 2026-11-16"
+  },
+  {
+    "id": "new24-37",
+    "instagram": "",
+    "placeId": "knuh",
+    "lat": 36.3078573,
+    "lng": 126.8965712,
+    "address": "한국전통문화대학교, 백제문로, 합정리, 부여군, 충청남도, 33116, 대한민국",
+    "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+    "venue": "한국전통문화대학교 조각실습동 1층 전시관",
+    "coordinateSource": "https://www.openstreetmap.org/way/366966608",
+    "start": "2026-11-10",
+    "end": "2026-11-16",
+    "label": "조각전공",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 39,
+    "exhibitionTitle": "전통을 전하다",
+    "school": "한국전통문화대학교",
+    "department": "전통미술공예학과 조각전공",
+    "category": "조소",
+    "sessions": [
+      {
+        "placeId": "knuh",
+        "lat": 36.3078573,
+        "lng": 126.8965712,
+        "address": "한국전통문화대학교, 백제문로, 합정리, 부여군, 충청남도, 33116, 대한민국",
+        "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+        "venue": "한국전통문화대학교 조각실습동 1층 전시관",
+        "coordinateSource": "https://www.openstreetmap.org/way/366966608",
+        "start": "2026-11-10",
+        "end": "2026-11-16",
+        "label": "조각전공",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 39
+      }
+    ],
+    "sourceRows": [
+      39
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "한국전통문화대학교 조각실습동 1층 전시관",
+    "cardDate": "11.10–11.16",
+    "dateText": "조각전공 2026-11-10 ~ 2026-11-16"
   },
   {
     "id": "sheet-47",
@@ -1707,13 +2372,13 @@
     "end": "2026-11-15",
     "dateText": "2026-11-11 ~ 2026-11-15",
     "cardDate": "11.11–11.15",
-    "cardLocation": "홍익대학교 대학로 아트센터 갤러리 1관",
-    "sourceRow": 47,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "cardLocation": "홍익대학교 대학로 아트센터 갤러리 1관 (서울 종로구 대학로 57)",
+    "sourceRow": 40,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "hongik-daehakro",
-    "venue": "홍익대학교 대학로 아트센터 갤러리 1관",
-    "address": "홍익대 대학로 아트센터 대극장, 57, 대학로, 연건동, 이화동, 종로구, 서울특별시, 03100, 대한민국",
+    "venue": "홍익대학교 대학로 아트센터 갤러리 1관 (서울 종로구 대학로 57)",
+    "address": "서울 종로구 대학로 57",
     "lat": 37.5765909,
     "lng": 127.0016042,
     "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
@@ -1721,15 +2386,26 @@
     "sessions": [
       {
         "placeId": "hongik-daehakro",
-        "venue": "홍익대학교 대학로 아트센터 갤러리 1관",
-        "address": "홍익대 대학로 아트센터 대극장, 57, 대학로, 연건동, 이화동, 종로구, 서울특별시, 03100, 대한민국",
+        "venue": "홍익대학교 대학로 아트센터 갤러리 1관 (서울 종로구 대학로 57)",
+        "address": "서울 종로구 대학로 57",
         "lat": 37.5765909,
         "lng": 127.0016042,
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/13805210387",
         "start": "2026-11-11",
-        "end": "2026-11-15"
+        "end": "2026-11-15",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 40
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      40
     ]
   },
   {
@@ -1743,8 +2419,8 @@
     "dateText": "2026-11-11 ~ 2026-11-24",
     "cardDate": "11.11–11.24",
     "cardLocation": "한남대학교 아트센터 엑시스 한남",
-    "sourceRow": 26,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 41,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "hannam",
     "venue": "한남대학교 아트센터 엑시스 한남",
@@ -1763,8 +2439,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/79507889",
         "start": "2026-11-11",
-        "end": "2026-11-24"
+        "end": "2026-11-24",
+        "label": "",
+        "hours": "매일 10:00–18:00",
+        "opening": "2026-11-11 17:00",
+        "sourceRow": 41
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "매일 10:00–18:00",
+    "opening": "2026-11-11 17:00",
+    "sourceRows": [
+      41
     ]
   },
   {
@@ -1778,8 +2465,8 @@
     "dateText": "2026-11-12 ~ 2026-11-18",
     "cardDate": "11.12–11.18",
     "cardLocation": "건국대학교 예술디자인대학 9층",
-    "sourceRow": 41,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 42,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "konkuk",
     "venue": "건국대학교 예술디자인대학 9층",
@@ -1798,9 +2485,64 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/26281749",
         "start": "2026-11-12",
-        "end": "2026-11-18"
+        "end": "2026-11-18",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 42
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      42
     ]
+  },
+  {
+    "id": "new24-41",
+    "instagram": "",
+    "placeId": "hongik",
+    "venue": "홍익대학교 문헌관 4층 현대미술관",
+    "address": "서울특별시 마포구 와우산로 94",
+    "lat": 37.5515,
+    "lng": 126.9243,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "start": "2026-11-16",
+    "end": "2026-11-21",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 43,
+    "exhibitionTitle": "2026학년도 졸업전시 (개별 전시명 미확인)",
+    "school": "홍익대학교",
+    "department": "목조형가구학과",
+    "category": "공예",
+    "sessions": [
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 문헌관 4층 현대미술관",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-11-16",
+        "end": "2026-11-21",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 43
+      }
+    ],
+    "sourceRows": [
+      43
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "개별 전시 제목 미확인",
+    "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
+    "cardDate": "11.16–11.21",
+    "dateText": "2026-11-16 ~ 2026-11-21"
   },
   {
     "id": "sheet-12",
@@ -1813,8 +2555,8 @@
     "dateText": "2026-11-17 ~ 2026-11-28",
     "cardDate": "11.17–11.28",
     "cardLocation": "서울여자대학교 조형예술관 1층·4층",
-    "sourceRow": 12,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 44,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "swu",
     "venue": "서울여자대학교 조형예술관 1층·4층",
@@ -1833,8 +2575,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/380920082",
         "start": "2026-11-17",
-        "end": "2026-11-28"
+        "end": "2026-11-28",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 44
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      44
     ]
   },
   {
@@ -1847,27 +2600,40 @@
     "end": "2026-11-22",
     "dateText": "2026-11-18 ~ 2026-11-22",
     "cardDate": "11.18–11.22",
-    "cardLocation": "로즈앤라임 B1 (서울 종로구 다산로 138)",
-    "sourceRow": 30,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "시트의 주소는 서울 종로구 다산로 138로 기재되어 있습니다. 자치구·도로명 조합 확인이 필요하여 지도 좌표를 보류했습니다.",
+    "cardLocation": "로즈앤라임 B1 (서울 중구 다산로 138)",
+    "sourceRow": 45,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "관람시간·오프닝 미기재",
     "placeId": "rose-lime",
-    "venue": "로즈앤라임 B1 (서울 종로구 다산로 138)",
-    "address": "서울 종로구 다산로 138",
-    "lat": null,
-    "lng": null,
-    "accuracy": "좌표 확인 중",
+    "venue": "로즈앤라임 B1 (서울 중구 다산로 138)",
+    "address": "서울 중구 다산로 138",
+    "lat": 37.5560455,
+    "lng": 127.0116252,
+    "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
     "sessions": [
       {
         "placeId": "rose-lime",
-        "venue": "로즈앤라임 B1 (서울 종로구 다산로 138)",
-        "address": "서울 종로구 다산로 138",
-        "lat": null,
-        "lng": null,
-        "accuracy": "좌표 확인 중",
+        "venue": "로즈앤라임 B1 (서울 중구 다산로 138)",
+        "address": "서울 중구 다산로 138",
+        "lat": 37.5560455,
+        "lng": 127.0116252,
+        "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+        "coordinateSource": "https://www.openstreetmap.org/node/13851762954",
         "start": "2026-11-18",
-        "end": "2026-11-22"
+        "end": "2026-11-22",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 45
       }
+    ],
+    "instagram": "",
+    "coordinateSource": "https://www.openstreetmap.org/node/13851762954",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      45
     ]
   },
   {
@@ -1878,11 +2644,11 @@
     "category": "디자인",
     "start": "2026-11-18",
     "end": "2026-11-22",
-    "dateText": "2026-11-18 ~ 2026-11-22 (상영회 2026-11-15)",
-    "cardDate": "11.18–11.22 (상영회 11.15)",
+    "dateText": "2026-11-18 ~ 2026-11-22",
+    "cardDate": "11.18–11.22",
     "cardLocation": "아리랑시네센터 1층 2관 / 3층 3관",
-    "sourceRow": 13,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 46,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "arirang",
     "venue": "아리랑시네센터 1층 2관 / 3층 3관",
@@ -1901,20 +2667,19 @@
         "accuracy": "도로명주소 건물 대표 위치 · 상영관·입구 확인 필요",
         "coordinateSource": "https://findby.co.kr/details/02827-112903107009-st-652bf1594e0223ae18077879",
         "start": "2026-11-18",
-        "end": "2026-11-22"
-      },
-      {
-        "placeId": "arirang",
-        "venue": "아리랑시네센터 1층 2관 / 3층 3관",
-        "address": "서울특별시 성북구 아리랑로 82",
-        "lat": 37.6001182,
-        "lng": 127.0138874,
-        "accuracy": "도로명주소 건물 대표 위치 · 상영관·입구 확인 필요",
-        "coordinateSource": "https://findby.co.kr/details/02827-112903107009-st-652bf1594e0223ae18077879",
-        "start": "2026-11-15",
-        "end": "2026-11-15",
-        "label": "상영회"
+        "end": "2026-11-22",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 46
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      46
     ]
   },
   {
@@ -1928,8 +2693,8 @@
     "dateText": "2026-11-18 ~ 2026-11-23",
     "cardDate": "11.18–11.23",
     "cardLocation": "인사1010",
-    "sourceRow": 11,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 47,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "insa1010",
     "venue": "인사1010",
@@ -1946,8 +2711,19 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-11-18",
-        "end": "2026-11-23"
+        "end": "2026-11-23",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 47
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      47
     ]
   },
   {
@@ -1961,9 +2737,9 @@
     "dateText": "2026-11-18 ~ 2026-11-25",
     "cardDate": "11.18–11.25",
     "cardLocation": "서울시립대학교 빨간벽돌갤러리 (서울 동대문구 서울시립대로 163)",
-    "sourceRow": 23,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "",
+    "sourceRow": 48,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "11월 25일 마지막 날 운영시간 단축",
     "placeId": "uos",
     "venue": "서울시립대학교 빨간벽돌갤러리 (서울 동대문구 서울시립대로 163)",
     "address": "서울 동대문구 서울시립대로 163",
@@ -1981,8 +2757,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/1012785889",
         "start": "2026-11-18",
-        "end": "2026-11-25"
+        "end": "2026-11-25",
+        "label": "",
+        "hours": "평일 11:00–20:00 / 주말 11:00–19:00; 11/25은 13:00 종료",
+        "opening": "2026-11-18 17:00",
+        "sourceRow": 48
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "평일 11:00–20:00 / 주말 11:00–19:00; 11/25은 13:00 종료",
+    "opening": "2026-11-18 17:00",
+    "sourceRows": [
+      48
     ]
   },
   {
@@ -1996,8 +2783,8 @@
     "dateText": "2026-11-19 ~ 2026-11-25",
     "cardDate": "11.19–11.25",
     "cardLocation": "숙명여자대학교 청파갤러리 1·2관, 무지개갤러리·문필갤러리, 미술대학 605·607호 오픈스튜디오",
-    "sourceRow": 5,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 50,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "sookmyung",
     "venue": "숙명여자대학교 청파갤러리 1·2관, 무지개갤러리·문필갤러리, 미술대학 605·607호 오픈스튜디오",
@@ -2016,8 +2803,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/relation/20613615",
         "start": "2026-11-19",
-        "end": "2026-11-25"
+        "end": "2026-11-25",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 50
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      50
     ]
   },
   {
@@ -2030,12 +2828,12 @@
     "end": "2026-11-25",
     "dateText": "2026-11-19 ~ 2026-11-25",
     "cardDate": "11.19–11.25",
-    "cardLocation": "창조관 C21 3층 (서울 서대문구 북아현로11가길 7)",
-    "sourceRow": 17,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "cardLocation": "추계예술대학교 창조관 3·4층 C21 (서울 서대문구 북아현로11가길 7)",
+    "sourceRow": 51,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "chugye",
-    "venue": "창조관 C21 3층 (서울 서대문구 북아현로11가길 7)",
+    "venue": "추계예술대학교 창조관 3·4층 C21 (서울 서대문구 북아현로11가길 7)",
     "address": "서울 서대문구 북아현로11가길 7",
     "lat": 37.5626968,
     "lng": 126.9541023,
@@ -2044,15 +2842,26 @@
     "sessions": [
       {
         "placeId": "chugye",
-        "venue": "창조관 C21 3층 (서울 서대문구 북아현로11가길 7)",
+        "venue": "추계예술대학교 창조관 3·4층 C21 (서울 서대문구 북아현로11가길 7)",
         "address": "서울 서대문구 북아현로11가길 7",
         "lat": 37.5626968,
         "lng": 126.9541023,
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/node/2671046087",
         "start": "2026-11-19",
-        "end": "2026-11-25"
+        "end": "2026-11-25",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 51
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      51
     ]
   },
   {
@@ -2066,8 +2875,8 @@
     "dateText": "2026-11-19 ~ 2026-11-21",
     "cardDate": "11.19–11.21",
     "cardLocation": "아트숨비센터 2층 (서울 은평구 은평로8길 9)",
-    "sourceRow": 14,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 52,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "soombi",
     "venue": "아트숨비센터 2층 (서울 은평구 은평로8길 9)",
@@ -2084,9 +2893,66 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-11-19",
-        "end": "2026-11-21"
+        "end": "2026-11-21",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 52
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      52
     ]
+  },
+  {
+    "id": "new24-50",
+    "instagram": "",
+    "placeId": "lightingroom",
+    "venue": "더서울라이티움 제3전시장",
+    "address": "더서울라이티움, 32-14, 서울숲2길, 성수1가2동, 성동구, 서울특별시, 04769, 대한민국",
+    "lat": 37.545749,
+    "lng": 127.0426796,
+    "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+    "coordinateSource": "https://www.openstreetmap.org/way/473812531",
+    "start": "2026-11-20",
+    "end": "2026-11-22",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 53,
+    "exhibitionTitle": "YVD SHOW 2026",
+    "school": "연세대학교",
+    "department": "디자인예술학부 시각디자인학전공",
+    "category": "디자인",
+    "sessions": [
+      {
+        "placeId": "lightingroom",
+        "venue": "더서울라이티움 제3전시장",
+        "address": "더서울라이티움, 32-14, 서울숲2길, 성수1가2동, 성동구, 서울특별시, 04769, 대한민국",
+        "lat": 37.545749,
+        "lng": 127.0426796,
+        "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+        "coordinateSource": "https://www.openstreetmap.org/way/473812531",
+        "start": "2026-11-20",
+        "end": "2026-11-22",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 53
+      }
+    ],
+    "sourceRows": [
+      53
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "더서울라이티움 제3전시장",
+    "cardDate": "11.20–11.22",
+    "dateText": "2026-11-20 ~ 2026-11-22"
   },
   {
     "id": "sheet-04",
@@ -2099,8 +2965,8 @@
     "dateText": "2026-11-20 ~ 2026-11-26",
     "cardDate": "11.20–11.26",
     "cardLocation": "중앙대학교 서울캠퍼스 301관 아트센터 제1·2전시실",
-    "sourceRow": 4,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 54,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "cau",
     "venue": "중앙대학교 서울캠퍼스 301관 아트센터 제1·2전시실",
@@ -2119,9 +2985,125 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/284355223",
         "start": "2026-11-20",
-        "end": "2026-11-26"
+        "end": "2026-11-26",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 54
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      54
     ]
+  },
+  {
+    "id": "new24-52",
+    "instagram": "",
+    "placeId": "gangneung",
+    "lat": 37.7687254,
+    "lng": 128.8711752,
+    "address": "강원대학교 강릉캠퍼스, 7, 죽헌길, 지변동, 경포동, 강릉시, 강원특별자치도, 25457, 대한민국",
+    "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+    "venue": "강원대학교 강릉캠퍼스 해람문화관 2층 아트스페이스 해람",
+    "coordinateSource": "https://www.openstreetmap.org/way/317671498",
+    "start": "2026-11-23",
+    "end": "2026-11-29",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 55,
+    "exhibitionTitle": "반향 (Resonance)",
+    "school": "강원대학교",
+    "department": "조형예술디자인학과 도자디자인전공",
+    "category": "도예",
+    "sessions": [
+      {
+        "placeId": "gangneung",
+        "lat": 37.7687254,
+        "lng": 128.8711752,
+        "address": "강원대학교 강릉캠퍼스, 7, 죽헌길, 지변동, 경포동, 강릉시, 강원특별자치도, 25457, 대한민국",
+        "accuracy": "OpenStreetMap 장소·캠퍼스 대표 위치 · 실제 전시실·입구 확인 필요",
+        "venue": "강원대학교 강릉캠퍼스 해람문화관 2층 아트스페이스 해람",
+        "coordinateSource": "https://www.openstreetmap.org/way/317671498",
+        "start": "2026-11-23",
+        "end": "2026-11-29",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 55
+      }
+    ],
+    "sourceRows": [
+      55
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "",
+    "cardLocation": "강원대학교 강릉캠퍼스 해람문화관 2층 아트스페이스 해람",
+    "cardDate": "11.23–11.29",
+    "dateText": "2026-11-23 ~ 2026-11-29"
+  },
+  {
+    "id": "new24-53",
+    "instagram": "",
+    "placeId": "hongik",
+    "venue": "홍익대학교 문헌관 4층 현대미술관",
+    "address": "서울특별시 마포구 와우산로 94",
+    "lat": 37.5515,
+    "lng": 126.9243,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "start": "2026-11-23",
+    "end": "2026-11-28",
+    "label": "장소 1",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 56,
+    "exhibitionTitle": "2026학년도 졸업전시 (개별 전시명 미확인)",
+    "school": "홍익대학교",
+    "department": "회화과",
+    "category": "회화",
+    "sessions": [
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 문헌관 4층 현대미술관",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-11-23",
+        "end": "2026-11-28",
+        "label": "장소 1",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 56
+      },
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 미술학관(F동) 3층 실기실",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-11-23",
+        "end": "2026-11-28",
+        "label": "장소 2",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 57
+      }
+    ],
+    "sourceRows": [
+      56,
+      57
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "개별 전시 제목 미확인",
+    "cardLocation": "홍익대학교 문헌관 4층 현대미술관 / 홍익대학교 미술학관(F동) 3층 실기실",
+    "cardDate": "장소 1 11.23–11.28 / 장소 2 11.23–11.28",
+    "dateText": "장소 1 2026-11-23 ~ 2026-11-28\n장소 2 2026-11-23 ~ 2026-11-28"
   },
   {
     "id": "sheet-16",
@@ -2134,8 +3116,8 @@
     "dateText": "2026-11-24 ~ 2026-11-29",
     "cardDate": "11.24–11.29",
     "cardLocation": "강원대학교 미술관 제1·2전시실",
-    "sourceRow": 16,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 58,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "kangwon",
     "venue": "강원대학교 미술관 제1·2전시실",
@@ -2152,8 +3134,19 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-11-24",
-        "end": "2026-11-29"
+        "end": "2026-11-29",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 58
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      58
     ]
   },
   {
@@ -2167,8 +3160,8 @@
     "dateText": "2026-11-25 ~ 2026-11-30",
     "cardDate": "11.25–11.30",
     "cardLocation": "경희대학교 예술디자인대학관 2층 A&D 갤러리",
-    "sourceRow": 37,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 59,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "khu",
     "venue": "경희대학교 예술디자인대학관 2층 A&D 갤러리",
@@ -2185,8 +3178,19 @@
         "lng": 127.0808,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-11-25",
-        "end": "2026-11-30"
+        "end": "2026-11-30",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 59
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      59
     ]
   },
   {
@@ -2200,8 +3204,8 @@
     "dateText": "2026-11-26 ~ 2026-11-29",
     "cardDate": "11.26–11.29",
     "cardLocation": "서울대학교 74동 1층 전시홀",
-    "sourceRow": 3,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 60,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "snu",
     "venue": "서울대학교 74동 1층 전시홀",
@@ -2218,8 +3222,19 @@
         "lng": 126.949,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-11-26",
-        "end": "2026-11-29"
+        "end": "2026-11-29",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 60
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      60
     ]
   },
   {
@@ -2230,12 +3245,12 @@
     "category": "패션",
     "start": "2026-11-27",
     "end": "2026-11-27",
-    "dateText": "2026-11-27 (졸업패션쇼 19:00)",
-    "cardDate": "11.27 (졸업패션쇼 19:00)",
+    "dateText": "2026-11-27 ~ 2026-11-27",
+    "cardDate": "11.27–11.27",
     "cardLocation": "DDP FASHION MALL 5층 패션창작스튜디오",
-    "sourceRow": 29,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
-    "notes": "",
+    "sourceRow": 61,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "단일 패션쇼",
     "placeId": "ddp",
     "venue": "DDP FASHION MALL 5층 패션창작스튜디오",
     "address": "DDP 패션몰, 22, 마장로, 동대문패션타운, 2통, 신당동, 중구, 서울특별시, 04566, 대한민국",
@@ -2253,8 +3268,19 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/382947007",
         "start": "2026-11-27",
-        "end": "2026-11-27"
+        "end": "2026-11-27",
+        "label": "",
+        "hours": "졸업패션쇼 19:00",
+        "opening": "2026-11-27 19:00",
+        "sourceRow": 61
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "졸업패션쇼 19:00",
+    "opening": "2026-11-27 19:00",
+    "sourceRows": [
+      61
     ]
   },
   {
@@ -2268,8 +3294,8 @@
     "dateText": "2026-11-30 ~ 2026-12-06",
     "cardDate": "11.30–12.06",
     "cardLocation": "계명대학교 대명캠퍼스 극재미술관",
-    "sourceRow": 6,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 62,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "keimyung",
     "venue": "계명대학교 대명캠퍼스 극재미술관",
@@ -2286,8 +3312,19 @@
         "lng": null,
         "accuracy": "좌표 확인 중",
         "start": "2026-11-30",
-        "end": "2026-12-06"
+        "end": "2026-12-06",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 62
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      62
     ]
   },
   {
@@ -2301,8 +3338,8 @@
     "dateText": "2026-11-30 ~ 2026-12-05",
     "cardDate": "11.30–12.05",
     "cardLocation": "홍익대학교 문헌관 4층 현대미술관 제1관",
-    "sourceRow": 10,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 63,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "hongik",
     "venue": "홍익대학교 문헌관 4층 현대미술관 제1관",
@@ -2319,8 +3356,19 @@
         "lng": 126.9243,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-11-30",
-        "end": "2026-12-05"
+        "end": "2026-12-05",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 63
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      63
     ]
   },
   {
@@ -2334,8 +3382,8 @@
     "dateText": "2026-12-01 ~ 2026-12-19",
     "cardDate": "12.01–12.19",
     "cardLocation": "국민대학교 예술관 2층 K-art Gallery·1층 중앙로비·110호 전시실",
-    "sourceRow": 38,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 64,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "kookmin",
     "venue": "국민대학교 예술관 2층 K-art Gallery·1층 중앙로비·110호 전시실",
@@ -2354,9 +3402,123 @@
         "accuracy": "OpenStreetMap 장소 대표 위치 · 전시실·입구 확인 필요",
         "coordinateSource": "https://www.openstreetmap.org/way/173018858",
         "start": "2026-12-01",
-        "end": "2026-12-19"
+        "end": "2026-12-19",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 64
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      64
     ]
+  },
+  {
+    "id": "new24-61",
+    "instagram": "",
+    "placeId": "hongik",
+    "venue": "홍익대학교 문헌관 4층 현대미술관",
+    "address": "서울특별시 마포구 와우산로 94",
+    "lat": 37.5515,
+    "lng": 126.9243,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "start": "2026-12-07",
+    "end": "2026-12-12",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 65,
+    "exhibitionTitle": "2026학년도 졸업전시 (개별 전시명 미확인)",
+    "school": "홍익대학교",
+    "department": "도예유리과",
+    "category": "도예",
+    "sessions": [
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 문헌관 4층 현대미술관",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-12-07",
+        "end": "2026-12-12",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 65
+      }
+    ],
+    "sourceRows": [
+      65
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "개별 전시 제목 미확인",
+    "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
+    "cardDate": "12.07–12.12",
+    "dateText": "2026-12-07 ~ 2026-12-12"
+  },
+  {
+    "id": "new24-62",
+    "instagram": "",
+    "placeId": "hongik",
+    "venue": "홍익대학교 홍문관 7층 일대",
+    "address": "서울특별시 마포구 와우산로 94",
+    "lat": 37.5515,
+    "lng": 126.9243,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "start": "2026-12-07",
+    "end": "2026-12-12",
+    "label": "장소 1",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 66,
+    "exhibitionTitle": "2026학년도 졸업전시 (개별 전시명 미확인)",
+    "school": "홍익대학교",
+    "department": "디자인학부 시각디자인전공",
+    "category": "디자인",
+    "sessions": [
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 홍문관 7층 일대",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-12-07",
+        "end": "2026-12-12",
+        "label": "장소 1",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 66
+      },
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 홍문관 1층 다목적실(R104)",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-12-07",
+        "end": "2026-12-12",
+        "label": "장소 2",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 67
+      }
+    ],
+    "sourceRows": [
+      66,
+      67
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "개별 전시 제목 미확인",
+    "cardLocation": "홍익대학교 홍문관 7층 일대 / 홍익대학교 홍문관 1층 다목적실(R104)",
+    "cardDate": "장소 1 12.07–12.12 / 장소 2 12.07–12.12",
+    "dateText": "장소 1 2026-12-07 ~ 2026-12-12\n장소 2 2026-12-07 ~ 2026-12-12"
   },
   {
     "id": "sheet-08",
@@ -2369,8 +3531,8 @@
     "dateText": "2026-12-09 ~ 2026-12-14",
     "cardDate": "12.09–12.14",
     "cardLocation": "마루아트센터 3층 제2·3·4전시실",
-    "sourceRow": 8,
-    "source": "사용자 제공 영상 정리 시트 · 공식 공지 미검증",
+    "sourceRow": 68,
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
     "notes": "",
     "placeId": "maru",
     "venue": "마루아트센터 3층 제2·3·4전시실",
@@ -2387,9 +3549,64 @@
         "lng": 126.9852,
         "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
         "start": "2026-12-09",
-        "end": "2026-12-14"
+        "end": "2026-12-14",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 68
       }
+    ],
+    "instagram": "",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRows": [
+      68
     ]
+  },
+  {
+    "id": "new24-64",
+    "instagram": "",
+    "placeId": "hongik",
+    "venue": "홍익대학교 문헌관 4층 현대미술관",
+    "address": "서울특별시 마포구 와우산로 94",
+    "lat": 37.5515,
+    "lng": 126.9243,
+    "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+    "start": "2026-12-15",
+    "end": "2026-12-19",
+    "label": "",
+    "hours": "",
+    "opening": "",
+    "sourceRow": 69,
+    "exhibitionTitle": "2026학년도 졸업전시 (개별 전시명 미확인)",
+    "school": "홍익대학교",
+    "department": "조소과",
+    "category": "조소",
+    "sessions": [
+      {
+        "placeId": "hongik",
+        "venue": "홍익대학교 문헌관 4층 현대미술관",
+        "address": "서울특별시 마포구 와우산로 94",
+        "lat": 37.5515,
+        "lng": 126.9243,
+        "accuracy": "기존 프리뷰 근사 위치 · 실제 전시실 좌표 확인 필요",
+        "start": "2026-12-15",
+        "end": "2026-12-19",
+        "label": "",
+        "hours": "",
+        "opening": "",
+        "sourceRow": 69
+      }
+    ],
+    "sourceRows": [
+      69
+    ],
+    "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
+    "notes": "개별 전시 제목 미확인",
+    "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
+    "cardDate": "12.15–12.19",
+    "dateText": "2026-12-15 ~ 2026-12-19"
   }
 ];
 
@@ -2449,7 +3666,7 @@
       // 실제 졸업전시명이 확인되면 exhibitionTitle에 추가합니다.
       const primary = d.exhibitionTitle || '전시명 확인 중';
       const secondary = displayName;
-      return `<article class="show-card" data-id="${d.id}">
+      return `<article class="show-card${saved.has(d.id) ? ' is-saved' : ''}" data-id="${d.id}">
         <div class="card-top">
           <span class="card-category">${escapeHTML(d.category)}</span>
           <button type="button" class="save" data-save="${d.id}" aria-label="${escapeHTML(displayName)} 즐겨찾기 ${saved.has(d.id) ? '취소' : '설정'}" aria-pressed="${saved.has(d.id)}" title="즐겨찾기">${saveIcon()}</button>
@@ -2484,6 +3701,8 @@
     $('#detailPlace').textContent = d.cardLocation || d.venue;
     $('#detailAddress').textContent = [...new Set(sessionsOf(d).map(x => x.address))].join(' / ');
     $('#detailType').textContent = d.category;
+    $('#detailHours').textContent = d.hours || '관람시간 미기재';
+    $('#detailOpening').textContent = d.opening || '오프닝 정보 미기재';
     $('#detailNotes').textContent = [d.notes, d.source || '기존 프리뷰 입력 자료', ...new Set(sessionsOf(d).map(x => x.accuracy))].filter(Boolean).join(' · ');
     $('#detailGoogle').href = googleUrl(d);
     updateDetailSave();
@@ -2545,10 +3764,28 @@
     const image = url ? `<a class="poster-frame" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" aria-label="${name} 홍보 포스터 크게 보기"><img data-poster src="${escapeHTML(url)}" alt="${name} 졸업전시 홍보 포스터" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></a>` : '';
     return `<figure class="poster-block"><figcaption class="poster-caption">홍보 포스터${showSchool ? `<span>${name}</span>` : ''}</figcaption>${image}<div class="poster-empty" ${url ? 'hidden' : ''}><strong>${url ? '포스터를 불러오지 못했습니다.' : '포스터 등록 예정'}</strong><span>${url ? '이미지 주소를 확인해 주세요.' : '확인된 홍보 이미지가 아직 없습니다.'}</span></div></figure>`;
   }
+  // Supply instagram: '@profile' (or the full Instagram profile URL) on a record.
+  // Post/reel URLs and unconfirmed names never become fabricated account links.
+  function instagramMarkup(d) {
+    let handle = typeof d.instagram === 'string' ? d.instagram.trim() : '';
+    if (/^https?:\/\//i.test(handle)) {
+      try {
+        const url = new URL(handle);
+        if (!['instagram.com','www.instagram.com'].includes(url.hostname)) return '<span class="popup-instagram is-pending">인스타그램 계정 확인 중</span>';
+        const parts = url.pathname.split('/').filter(Boolean);
+        handle = parts.length === 1 ? parts[0] : '';
+      } catch(e) { handle = ''; }
+    }
+    handle = handle.replace(/^@/, '');
+    if (!/^[a-zA-Z0-9._]{1,30}$/.test(handle) || !/[a-zA-Z0-9_]/.test(handle) || ['p','reel','reels','stories','explore','accounts'].includes(handle.toLowerCase())) {
+      return '<span class="popup-instagram is-pending">인스타그램 계정 확인 중</span>';
+    }
+    return `<a class="popup-instagram" href="https://www.instagram.com/${encodeURIComponent(handle)}/" target="_blank" rel="noopener noreferrer" aria-label="${escapeHTML(d.school + ' ' + d.department)} 인스타그램 @${escapeHTML(handle)} 새 창에서 보기">@${escapeHTML(handle)} ↗</a>`;
+  }
   function popupHTML(arr) {
     const d = arr[0];
-    const title = arr.length > 1 ? ({maru:'마루아트센터',hongik:'홍익대학교 문헌관',dongguk:'동국대학교 문화관','hongik-daehakro':'홍익대학교 대학로 아트센터',kookmin:'국민대학교 캠퍼스',khu:'경희대학교 국제캠퍼스'}[d.placeId] || d.venue.split(' (')[0]) + ' · ' + arr.length + '개 전시' : d.venue.replace(/ \(.*\)/, '');
-    return `<div class="popup-title">${escapeHTML(title)}</div>${arr.map(x => `<div class="popup-show"><button type="button" class="popup-detail" data-map-detail="${x.id}">${escapeHTML(x.exhibitionTitle || '전시명 확인 중')}<span class="popup-school">${escapeHTML(x.school + ' ' + x.department)} ↗</span></button><span class="popup-date">${interval(x)}</span><button type="button" class="popup-save" data-map-save="${x.id}" aria-label="${escapeHTML(x.school + ' ' + x.department)} 즐겨찾기 ${saved.has(x.id) ? '취소' : '설정'}" aria-pressed="${saved.has(x.id)}">${saveIcon()}</button></div>`).join('')}<a class="popup-go" href="${googleUrl(d)}" target="_blank" rel="noopener noreferrer">구글 지도 열기 ↗</a><div class="popup-posters">${arr.map(x => posterMarkup(x, arr.length > 1)).join('')}</div>`;
+    const title = arr.length > 1 ? ({maru:'마루아트센터',hongik:'홍익대학교 서울캠퍼스',dongguk:'동국대학교 문화관','hongik-daehakro':'홍익대학교 대학로 아트센터',kookmin:'국민대학교 캠퍼스',khu:'경희대학교 국제캠퍼스'}[d.placeId] || d.venue.split(' (')[0]) + ' · ' + arr.length + '개 전시' : d.venue.replace(/ \(.*\)/, '');
+    return `<div class="popup-title">${escapeHTML(title)}</div>${arr.map(x => `<div class="popup-show"><button type="button" class="popup-detail" data-map-detail="${x.id}">${escapeHTML(x.exhibitionTitle || '전시명 확인 중')}<span class="popup-school">${escapeHTML(x.school + ' ' + x.department)} ↗</span></button><span class="popup-date">${interval(x)}</span>${instagramMarkup(x)}<button type="button" class="popup-save" data-map-save="${x.id}" aria-label="${escapeHTML(x.school + ' ' + x.department)} 즐겨찾기 ${saved.has(x.id) ? '취소' : '설정'}" aria-pressed="${saved.has(x.id)}">${saveIcon()}</button></div>`).join('')}<a class="popup-go" href="${googleUrl(d)}" target="_blank" rel="noopener noreferrer">구글 지도 열기 ↗</a><div class="popup-posters">${arr.map(x => posterMarkup(x, arr.length > 1)).join('')}</div>`;
   }
   function mapPopupOptions() {
     const shell = document.querySelector('.map-shell');
