@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#111214" />
+  <meta name="theme-color" content="#0B0C0E" />
   <meta name="description" content="2026 미술대학 졸업전시를 장소와 날짜, 분야별로 둘러보는 개인 아카이브" />
   <title>2026 미대 졸전 지도</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -13,7 +13,7 @@
 
     :root {
       color-scheme: dark;
-      --bg: #111214;
+      --bg: #0B0C0E;
       --paper: #1B1C1F;
       --paper-soft: #222427;
       --chip: #222427;
@@ -58,7 +58,7 @@
     .chip { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 8px 10px; border: 0; border-radius: 3px; background: transparent; color: var(--secondary); font-size: 13px; font-weight: 500; line-height: 1.5; white-space: nowrap; }
     .chip::before { content: ''; width: 10px; height: 10px; flex: 0 0 10px; }
     .chip:hover { background: var(--paper); color: var(--text); }
-    .chip.active { color: var(--bg); background: #DEDFDC; font-weight: 600; }
+    .chip.active { color: var(--bg); background: var(--text); font-weight: 600; }
     .chip.active::before { content: '✓'; height: auto; font-size: 11px; line-height: 1; }
     .filter-tools { grid-column: 2; grid-row: 1 / 3; display: flex; align-items: flex-end; gap: 12px; }
     .filter-tools .tool-label { display: none; }
@@ -68,7 +68,7 @@
     .saved-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 4px; background: transparent; color: var(--secondary); font-size: 13px; font-weight: 500; line-height: 1.4; white-space: nowrap; }
     .saved-toggle svg { width: 16px; height: 16px; }
     .saved-toggle:hover { background: var(--paper); color: var(--text); }
-    .saved-toggle.active { background: #DEDFDC; border-color: #DEDFDC; color: var(--bg); }
+    .saved-toggle.active { background: var(--text); border-color: var(--text); color: var(--bg); }
     .saved-toggle.active svg { fill: currentColor; }
     .reset { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 8px; border: 0; background: transparent; color: var(--secondary); font-size: 12px; line-height: 1.4; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
     .reset:hover { color: var(--text); }
@@ -111,7 +111,7 @@
     .modal-data dd { margin: 0; color: var(--text); font-size: 14px; font-weight: 400; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
     .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 32px; }
     .primary-btn,.secondary-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px; border: 0; border-radius: 4px; font-size: 13px; font-weight: 550; line-height: 1.5; text-align: center; }
-    .primary-btn { color: var(--bg); background: #DEDFDC; }
+    .primary-btn { color: var(--bg); background: var(--text); }
     .secondary-btn { color: var(--text); background: #34373C; }
     .modal-hint { margin-top: 20px; color: var(--secondary); font-size: 12px; line-height: 1.7; }
     @media (max-width:1100px) {
@@ -187,16 +187,13 @@
     .map-overlay span { color: var(--secondary); font-size: 11px; line-height: 1.5; }
     .map-scope { position: absolute; right: 16px; top: 16px; z-index: 450; display: flex; gap: 4px; padding: 3px; border-radius: 3px; background: #1B1C1FF5; }
     .map-scope button { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 8px 12px; border: 0; border-radius: 2px; color: var(--secondary); background: transparent; font-size: 12px; font-weight: 500; line-height: 1.5; }
-    .map-scope button[aria-pressed="true"] { color: var(--bg); background: #DEDFDC; font-weight: 600; }
-    .network-summary { position: absolute; bottom: 32px; left: 16px; z-index: 450; max-width: calc(100% - 82px); padding: 12px 14px; border-radius: 3px; background: #1B1C1FF5; pointer-events: none; }
-    .network-summary p { color: var(--secondary); font-size: 12px; line-height: 1.7; }
-    .network-summary strong { color: var(--text); font-weight: 600; }
+    .map-scope button[aria-pressed="true"] { color: var(--bg); background: var(--text); font-weight: 600; }
     .map-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-top: 14px; color: var(--secondary); font-size: 12px; line-height: 1.7; }
     .map-footer button { flex-shrink: 0; min-height: 24px; padding: 0; border: 0; background: none; color: var(--text); font-size: 12px; line-height: 1.7; text-decoration: underline; text-underline-offset: 4px; }
     .network-marker { display: grid; place-items: center; background: transparent; border: 0; }
     .network-dot { display: block; width: 11px; height: 11px; border: 0; border-radius: 50%; background: #E7E7E4; box-shadow: none; transition: transform 160ms ease; }
     .network-marker:hover .network-dot,.network-marker:focus-visible .network-dot { transform: scale(1.3); }
-    .network-marker.is-saved .network-dot { width: 10px; height: 10px; background: var(--network); box-shadow: none; }
+    .network-marker.is-saved .network-dot { width: 10px; height: 10px; background: var(--category-fill,var(--network)); box-shadow: none; }
     .network-label.leaflet-tooltip { padding: 2px 5px; border: 0; border-radius: 2px; background: #1B1C1FEF; box-shadow: none; font: 500 11px/1.6 var(--font); color: var(--text); }
     .network-label.leaflet-tooltip:before { display: none; }
     .network-edge { stroke-linecap: round; }
@@ -215,21 +212,21 @@
     .leaflet-popup-content { margin: 20px; font-family: var(--font); line-height: 1.6; }
     .leaflet-popup a.leaflet-popup-close-button { display: grid; place-items: center; width: 32px; height: 32px; color: var(--secondary); font-size: 22px; }
     .leaflet-popup a.leaflet-popup-close-button:hover { color: var(--text); }
-    .popup-title { margin-bottom: 16px; color: var(--text); font-size: 14px; font-weight: 600; line-height: 1.5; }
+    .popup-title { margin-bottom: 26px; color: var(--text); font-size: 14px; font-weight: 600; line-height: 1.5; }
     .popup-show { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 4px 12px; margin: 16px 0; }
     button.popup-detail { min-height: 24px; padding: 0; border: 0; border-radius: 0; background: none; color: var(--text); text-align: left; font-size: 13px; font-weight: 500; line-height: 1.5; }
-    .popup-show .popup-date { grid-column: 1; color: var(--secondary); font-size: 12px; line-height: 1.6; }
+    .popup-show .popup-date { grid-column: 1; margin-top: 12px; color: var(--secondary); font-size: 12px; line-height: 1.6; }
     .popup-save { grid-column: 2; grid-row: 1/4; display: grid; place-items: center; width: 44px; height: 44px; padding: 12px; border: 0; border-radius: 3px; background: var(--paper-soft); color: var(--secondary); }
     .popup-save svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.6; fill: none; }
-    .popup-save[aria-pressed="true"] { color: var(--network); }
+    .popup-save[aria-pressed="true"] { color: var(--category-color,var(--network)); }
     .popup-save[aria-pressed="true"] svg { fill: currentColor; }
     .leaflet-container a.popup-go { display: inline-flex; align-items: center; min-height: 28px; margin-top: 4px; color: var(--text); font-size: 12px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
-    .map-fallback { position: absolute; inset: 0; z-index: 2; overflow: hidden; background-color: #191B1E; background-image: linear-gradient(#282B2F 1px,transparent 1px),linear-gradient(90deg,#282B2F 1px,transparent 1px); background-size: 48px 48px; }
+    .map-fallback { position: absolute; inset: 0; z-index: 2; overflow: hidden; background-color: #191B1E; background-image: none; }
     .map-fallback.is-hidden { display: none; }
     #fallbackNetwork { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .fallback-pin { position: absolute; transform: translate(-50%,-50%); z-index: 3; width: 36px; height: 36px; padding: 0; border: 0; background: transparent; }
     .fallback-pin .network-dot { margin: auto; }
-    .fallback-pin.is-saved .network-dot { width: 10px; height: 10px; background: var(--network); box-shadow: none; }
+    .fallback-pin.is-saved .network-dot { width: 10px; height: 10px; background: var(--category-fill,var(--network)); box-shadow: none; }
     .fallback-place-label { position: absolute; left: 28px; top: 9px; padding: 1px 4px; border-radius: 2px; background: #1B1C1FEF; color: var(--text); font: 500 11px/1.6 var(--font); white-space: nowrap; }
     .fallback-caption { position: absolute; z-index: 4; left: 16px; bottom: 112px; max-width: calc(100% - 32px); padding: 10px 12px; border-radius: 3px; background: var(--paper); color: var(--secondary); font-size: 11px; line-height: 1.6; pointer-events: none; }
     .fallback-popup { position: absolute; z-index: 460; top: 72px; left: 16px; width: min(310px,calc(100% - 32px)); padding: 20px; border: 1px solid #484C53; border-radius: 4px; background: var(--paper); }
@@ -242,8 +239,6 @@
       .map-overlay span { font-size: 10px; }
       .map-scope { top: 10px; right: 10px; }
       .map-scope button { min-height: 32px; padding: 6px 10px; font-size: 11px; }
-      .network-summary { left: 10px; bottom: 30px; padding: 10px 12px; }
-      .network-summary p { font-size: 11px; }
       .map-footer { flex-direction: column; gap: 8px; font-size: 11px; }
       .map-footer button { font-size: 12px; }
       .fallback-caption { left: 10px; max-width: calc(100% - 20px); bottom: 110px; }
@@ -423,16 +418,43 @@
 .popup-school{display:block;margin-top:4px;font-size:12px;font-weight:400;color:var(--secondary);line-height:1.5;}.popup-detail{overflow-wrap:anywhere;}.map-pending-label{font-size:12px;}.map-footer>span{max-width:80%;}.modal-data dd{white-space:pre-line;}
 
 /* Saved cards read as the light reverse of the dark archive. */
-.show-card.is-saved{background:#DEDFDB;}
-.show-card.is-saved:hover{background:#D4D6D1;}
-.show-card.is-saved .exhibition-title{color:#191B1F;}
-.show-card.is-saved .card-category,.show-card.is-saved .card-school,.show-card.is-saved .card-location,.show-card.is-saved .card-date{color:#4F535A;}
-.show-card.is-saved .save[aria-pressed="true"]{color:#B72D35;}
-.show-card.is-saved .save:hover{background:#C7CAC4;}
-.show-card.is-saved .card-open:focus-visible::after{outline-color:#191B1F;}
+.show-card.is-saved{background:var(--category-color,var(--text));}
+.show-card.is-saved:hover{background:var(--category-color,var(--text));}
+.show-card.is-saved .exhibition-title{color:var(--bg);}
+.show-card.is-saved .card-category,.show-card.is-saved .card-school,.show-card.is-saved .card-location,.show-card.is-saved .card-date{color:#202126;}
+.show-card.is-saved .save[aria-pressed="true"]{color:var(--bg);}
+.show-card.is-saved .save:hover{background:#0B0C0E14;}
+.show-card.is-saved .card-open:focus-visible::after{outline-color:var(--bg);}
 .popup-show .popup-instagram{grid-column:1;display:block;width:fit-content;max-width:100%;margin-top:1px;color:var(--text);font-size:12px;line-height:1.6;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}
 .popup-show .popup-instagram.is-pending{color:var(--secondary);text-decoration:none;}
 @media(prefers-reduced-motion:reduce){.show-card{transition:none;}}
+
+.chip[data-category]:not([data-category="all"])::after{content:"";width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:var(--category-color);}
+
+/* Filter selection and mobile grouping refinements. */
+.chip::before,.chip.active::before{content:none;display:none;}
+.chip[data-category].active{background:var(--category-color,var(--text));color:var(--bg);}
+.chip.active{text-decoration:none;}
+.filter-title,.date-field>span{display:none;}
+.filter-group{grid-template-columns:minmax(0,400px);gap:0;}
+.date-field{grid-template-columns:minmax(0,1fr);}
+@media(max-width:700px){
+ .archive{padding-top:88px;}
+ .archive>.section-heading{margin-bottom:32px;}
+ .filters{gap:18px;margin-bottom:36px;}
+ .filter-group{grid-template-columns:minmax(0,1fr);}
+ #categoryFilters{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
+ #monthFilters{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;}
+ .chip{min-height:42px;padding:9px 6px;}
+ .filter-tools{margin-top:6px;padding-left:0;}
+ .tool-controls{gap:10px;}
+ .date-field{grid-template-columns:minmax(0,1fr);}
+ .show-card{min-height:174px;padding:18px 20px;}
+ .card-top{margin-bottom:8px;min-height:20px;}
+ .card-meta{padding-top:16px;}
+ .cards{gap:12px;}
+}
+
 </style>
 </head>
 <body>
@@ -478,10 +500,6 @@
       <div class="map-scope" role="group" aria-label="지도 범위">
         <button type="button" id="seoulView" aria-pressed="true">서울권</button>
         <button type="button" id="allView" aria-pressed="false">전체</button>
-      </div>
-      <div class="network-summary" role="status" aria-live="polite">
-        <p id="networkStatus">별을 눌러 전시장 사이를 연결해 보세요.</p>
-        <p>가는 선은 저장한 장소 사이의 연결입니다.</p>
       </div>
     </div>
     <div class="map-footer"><span>※ 지도는 장소·캠퍼스 대표 위치입니다. 실제 전시실·입구는 확인이 필요합니다.<span id="mapPending"></span></span><button type="button" id="mapReset">전체 위치 보기 ↗</button></div>
@@ -530,7 +548,7 @@
     </div>
 
     <div class="cards" id="cards" aria-live="polite"></div>
-    <div class="bottom-note"><span>사용자 제공 영상 정리 시트를 반영했습니다. 전시별 확인 사항은 상세 정보에 표시합니다.</span><span>2026.10.22 · Preview 2.3 · 전시 목록 업데이트</span></div>
+    <div class="bottom-note"><span>사용자 제공 영상 정리 시트를 반영했습니다. 전시별 확인 사항은 상세 정보에 표시합니다.</span><span>2026.10.22 · Preview 2.3 · 필터·그라디언트·모바일 조정</span></div>
   </section>
 </main>
 
@@ -3611,6 +3629,14 @@
 ];
 
   const $ = (s) => document.querySelector(s);
+  // One palette shared by filters, saved cards and saved map points.
+  const categoryColors = {'디자인':'#C4FF00','금속':'#00E5FF','도예':'#FF8A24','회화':'#FF56CB','조소':'#5485FF','공예':'#35F28B','패션':'#B88AFF'};
+  const categoryColor = d => categoryColors[d.category] || '#E7E7E4';
+  function savedPlaceFill(arr) {
+    const colors = [...new Set(arr.filter(d => saved.has(d.id)).map(categoryColor))];
+    if (colors.length < 2) return colors[0] || '#E7E7E4';
+    return `conic-gradient(${colors.map((c,i) => `${c} ${i*100/colors.length}% ${(i+1)*100/colors.length}%`).join(',')})`;
+  }
   const state = { category:'all', month:'all', date:'', savedOnly:false };
   let saved = new Set();
   try { const stored = JSON.parse(localStorage.getItem('gradshow-bookmarks-v1') || '[]'); if (Array.isArray(stored)) saved = new Set(stored.filter(id => exhibitions.some(d => d.id === id))); } catch(e) {}
@@ -3666,7 +3692,7 @@
       // 실제 졸업전시명이 확인되면 exhibitionTitle에 추가합니다.
       const primary = d.exhibitionTitle || '전시명 확인 중';
       const secondary = displayName;
-      return `<article class="show-card${saved.has(d.id) ? ' is-saved' : ''}" data-id="${d.id}">
+      return `<article class="show-card${saved.has(d.id) ? ' is-saved' : ''}" data-id="${d.id}" style="--category-color:${categoryColor(d)}">
         <div class="card-top">
           <span class="card-category">${escapeHTML(d.category)}</span>
           <button type="button" class="save" data-save="${d.id}" aria-label="${escapeHTML(displayName)} 즐겨찾기 ${saved.has(d.id) ? '취소' : '설정'}" aria-pressed="${saved.has(d.id)}" title="즐겨찾기">${saveIcon()}</button>
@@ -3741,7 +3767,7 @@
     const edges = [];
     for (let i = 0; i < places.length; i++) {
       for (let j = i + 1; j < places.length; j++) {
-        const a = places[i][0], b = places[j][0];
+        const a = places[i].find(d => saved.has(d.id)), b = places[j].find(d => saved.has(d.id));
         edges.push({ key: [a.placeId, b.placeId].sort().join(':'), a, b });
       }
     }
@@ -3785,7 +3811,7 @@
   function popupHTML(arr) {
     const d = arr[0];
     const title = arr.length > 1 ? ({maru:'마루아트센터',hongik:'홍익대학교 서울캠퍼스',dongguk:'동국대학교 문화관','hongik-daehakro':'홍익대학교 대학로 아트센터',kookmin:'국민대학교 캠퍼스',khu:'경희대학교 국제캠퍼스'}[d.placeId] || d.venue.split(' (')[0]) + ' · ' + arr.length + '개 전시' : d.venue.replace(/ \(.*\)/, '');
-    return `<div class="popup-title">${escapeHTML(title)}</div>${arr.map(x => `<div class="popup-show"><button type="button" class="popup-detail" data-map-detail="${x.id}">${escapeHTML(x.exhibitionTitle || '전시명 확인 중')}<span class="popup-school">${escapeHTML(x.school + ' ' + x.department)} ↗</span></button><span class="popup-date">${interval(x)}</span>${instagramMarkup(x)}<button type="button" class="popup-save" data-map-save="${x.id}" aria-label="${escapeHTML(x.school + ' ' + x.department)} 즐겨찾기 ${saved.has(x.id) ? '취소' : '설정'}" aria-pressed="${saved.has(x.id)}">${saveIcon()}</button></div>`).join('')}<a class="popup-go" href="${googleUrl(d)}" target="_blank" rel="noopener noreferrer">구글 지도 열기 ↗</a><div class="popup-posters">${arr.map(x => posterMarkup(x, arr.length > 1)).join('')}</div>`;
+    return `<div class="popup-title">${escapeHTML(title)}</div>${arr.map(x => `<div class="popup-show" style="--category-color:${categoryColor(x)}"><button type="button" class="popup-detail" data-map-detail="${x.id}">${escapeHTML(x.exhibitionTitle || '전시명 확인 중')}<span class="popup-school">${escapeHTML(x.school + ' ' + x.department)} ↗</span></button><span class="popup-date">${interval(x)}</span>${instagramMarkup(x)}<button type="button" class="popup-save" data-map-save="${x.id}" aria-label="${escapeHTML(x.school + ' ' + x.department)} 즐겨찾기 ${saved.has(x.id) ? '취소' : '설정'}" aria-pressed="${saved.has(x.id)}">${saveIcon()}</button></div>`).join('')}<a class="popup-go" href="${googleUrl(d)}" target="_blank" rel="noopener noreferrer">구글 지도 열기 ↗</a><div class="popup-posters">${arr.map(x => posterMarkup(x, arr.length > 1)).join('')}</div>`;
   }
   function mapPopupOptions() {
     const shell = document.querySelector('.map-shell');
@@ -3819,13 +3845,13 @@
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
     svg.innerHTML = edges.map(e => {
       const [x1,y1]=point(e.a), [x2,y2]=point(e.b);
-      return `<path d="M${x1},${y1} L${x2},${y2}" pathLength="1" class="network-edge ${fallbackEdgeKeys.has(e.key) ? '' : 'is-new'}" stroke="${networkColor}" stroke-width="1.8" opacity=".95" fill="none"/>`;
+      return `<defs><linearGradient id="fallback-edge-${edges.indexOf(e)}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"><stop offset="0" stop-color="${categoryColor(e.a)}"/><stop offset="1" stop-color="${categoryColor(e.b)}"/></linearGradient></defs><path d="M${x1},${y1} L${x2},${y2}" pathLength="1" class="network-edge ${fallbackEdgeKeys.has(e.key) ? '' : 'is-new'}" stroke="url(#fallback-edge-${edges.indexOf(e)})" stroke-width="1.8" opacity=".95" fill="none"/>`;
     }).join('');
     fallbackEdgeKeys = new Set(edges.map(e => e.key));
     $('#fallbackPins').innerHTML = groups.map(arr => {
       const d = arr[0], [x,y] = point(d);
       if (x < 20 || x > width - 20 || y < 65 || y > height - 100) return '';
-      return `<button type="button" class="fallback-pin ${arr.some(s => saved.has(s.id)) ? 'is-saved' : ''}" style="left:${x}px;top:${y}px" data-place="${d.placeId}" aria-label="${escapeHTML(arr.map(s => s.school + ' ' + s.department).join(', '))} 전시 위치"><span class="network-dot" aria-hidden="true"></span></button>`;
+      return `<button type="button" class="fallback-pin ${arr.some(s => saved.has(s.id)) ? 'is-saved' : ''}" style="left:${x}px;top:${y}px;--category-fill:${savedPlaceFill(arr)}" data-place="${d.placeId}" aria-label="${escapeHTML(arr.map(s => s.school + ' ' + s.department).join(', '))} 전시 위치"><span class="network-dot" aria-hidden="true"></span></button>`;
     }).join('');
     $('#fallbackPins').querySelectorAll('[data-place]').forEach(b => b.addEventListener('click', () => {
       const arr = groups.find(g => g[0].placeId === b.dataset.place);
@@ -3846,11 +3872,28 @@
   }
   // Reproject every saved-place connection after the viewport settles.
   // Keep one dedicated SVG renderer and avoid clipping at the previous extent.
+  let gradientSerial = 0;
+  function updateEdgeGradient(line) {
+    const path=line.getElement();
+    if(!path || !line.edgeData) return;
+    const svg=path.ownerSVGElement, ns='http://www.w3.org/2000/svg';
+    let defs=svg.querySelector('defs');
+    if(!defs){defs=document.createElementNS(ns,'defs');svg.prepend(defs);}
+    const id=line.gradientId || (line.gradientId='place-edge-'+(++gradientSerial));
+    let gradient=defs.querySelector('#'+id);
+    if(!gradient){gradient=document.createElementNS(ns,'linearGradient');gradient.id=id;gradient.setAttribute('gradientUnits','userSpaceOnUse');defs.append(gradient);}
+    const e=line.edgeData,a=leafletMap.latLngToLayerPoint([e.a.lat,e.a.lng]),b=leafletMap.latLngToLayerPoint([e.b.lat,e.b.lng]);
+    for(const [key,value] of Object.entries({x1:a.x,y1:a.y,x2:b.x,y2:b.y})) gradient.setAttribute(key,value);
+    gradient.innerHTML=`<stop offset="0" stop-color="${categoryColor(e.a)}"/><stop offset="1" stop-color="${categoryColor(e.b)}"/>`;
+    path.setAttribute('stroke',`url(#${id})`);
+  }
   function refreshConnectionGeometry() {
     if (!useLeaflet || !leafletMap) return;
-    edgeLayers.forEach(line => line.redraw());
+    edgeLayers.forEach(line => {line.redraw();updateEdgeGradient(line);});
   }
   function setMapScope(scope) {
+    if (leafletMap) leafletMap.closePopup();
+    $('#fallbackPopup').hidden = true;
     viewScope = scope;
     $('#seoulView').setAttribute('aria-pressed', String(scope === 'seoul'));
     $('#allView').setAttribute('aria-pressed', String(scope === 'all'));
@@ -3872,14 +3915,13 @@
     $('#mapCount').textContent = groups.length + '곳';
     const pending = new Set(filteredShows().flatMap(sessionsOf).filter(x => matchesPeriod(x) && !mapped(x)).map(x => x.placeId));
     $('#mapPending').textContent = pending.size ? ` · 좌표 확인 중 ${pending.size}곳은 목록에서 확인하실 수 있습니다.` : '';
-    $('#networkStatus').innerHTML = places.length === 0 ? '별을 눌러 전시장 사이를 연결해 보세요.' : places.length === 1 ? '<strong>1곳</strong>을 골랐습니다. 다른 장소도 저장해 보세요.' : `<strong>${places.length}곳</strong>의 전시장 · <strong>${edges.length}개</strong>의 연결`;
     fallbackPositions(groups, edges);
     if (!useLeaflet || !leafletMap) return;
     const openPlace = markers.find(m => m.isPopupOpen())?.options.placeId;
     markers.forEach(m => leafletMap.removeLayer(m)); markers = [];
     groups.forEach(arr => {
       const d = arr[0], isSaved = arr.some(s => saved.has(s.id));
-      const icon = L.divIcon({className:'network-marker' + (isSaved ? ' is-saved' : ''), html:'<span class="network-dot"></span>', iconSize:[36,36], iconAnchor:[18,18]});
+      const icon = L.divIcon({className:'network-marker' + (isSaved ? ' is-saved' : ''), html:`<span class="network-dot" style="--category-fill:${savedPlaceFill(arr)}"></span>`, iconSize:[36,36], iconAnchor:[18,18]});
       const label = arr.map(x => x.school + ' ' + x.department).join(', ') + ' 전시 위치';
       const marker = L.marker([d.lat,d.lng], {icon, placeId:d.placeId, title:'', alt:label}).addTo(leafletMap).bindPopup(popupHTML(arr), mapPopupOptions());
       marker.getElement().setAttribute('aria-label', label);
@@ -3888,11 +3930,13 @@
       if (openPlace === d.placeId) marker.openPopup();
     });
     const activeKeys = new Set(edges.map(e => e.key));
-    edgeLayers.forEach((line,key) => { if (!activeKeys.has(key)) { leafletMap.removeLayer(line); edgeLayers.delete(key); } });
+    edgeLayers.forEach((line,key) => { if (!activeKeys.has(key)) { line.getElement()?.ownerSVGElement?.querySelector('#'+line.gradientId)?.remove(); leafletMap.removeLayer(line); edgeLayers.delete(key); } });
     edges.forEach(e => {
-      if (edgeLayers.has(e.key)) return;
+      if (edgeLayers.has(e.key)) {const line=edgeLayers.get(e.key);line.edgeData=e;updateEdgeGradient(line);return;}
       const line = L.polyline([[e.a.lat,e.a.lng],[e.b.lat,e.b.lng]], {renderer:connectionRenderer, pane:'connections', color:networkColor, weight:1.8, opacity:.95, smoothFactor:0, noClip:true, interactive:false, className:'network-edge'}).addTo(leafletMap);
+      line.edgeData=e;
       edgeLayers.set(e.key,line);
+      updateEdgeGradient(line);
       line.getElement().dataset.connection = e.key;
       animateEdge(line);
     });
@@ -3906,6 +3950,7 @@
       leafletMap.getPane('connections').style.pointerEvents = 'none';
       connectionRenderer = L.svg({pane:'connections', padding:.5}).addTo(leafletMap);
       leafletMap.on('zoomend moveend viewreset resize', refreshConnectionGeometry);
+      leafletMap.on('zoomstart', () => { leafletMap.closePopup(); $('#fallbackPopup').hidden = true; });
       L.control.zoom({position:'bottomright'}).addTo(leafletMap);
       const layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>', maxZoom:18});
       layer.on('tileload', () => $('#mapFallback').classList.add('is-hidden'));
@@ -3944,6 +3989,7 @@
 
   function renderAll() { renderFilterButtons(); renderCards(); renderMap(); }
 
+  document.querySelectorAll('[data-category]').forEach(b => { if(categoryColors[b.dataset.category]) b.style.setProperty('--category-color',categoryColors[b.dataset.category]); });
   document.querySelectorAll('[data-category]').forEach(b => b.addEventListener('click', () => { state.category = b.dataset.category; renderAll(); }));
   document.querySelectorAll('[data-month]').forEach(b => b.addEventListener('click', () => { state.month = b.dataset.month; renderAll(); }));
   $('#visitDate').addEventListener('change', (e) => { state.date = e.target.value; renderAll(); });
