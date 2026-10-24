@@ -566,6 +566,9 @@
 .schedule-row{display:grid;grid-template-columns:2em minmax(0,1fr);column-gap:8px;line-height:inherit;}
 .schedule-row>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums;}
 #detailDate{white-space:pre-line;}
+
+.modal-data>div[hidden]{display:none;}
+#detailInstagram a{color:var(--text);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}
 </style>
 </head>
 <body>
@@ -675,7 +678,7 @@
 <dialog id="detailDialog" aria-label="전시 상세 정보"><div class="modal-pad">
   <div class="modal-top"><span class="modal-kicker" id="detailCategory">EXHIBITION</span><button type="button" class="close" id="closeDialog" aria-label="닫기">×</button></div>
   <h3 class="modal-name" id="detailName"></h3>
-  <dl class="modal-data"><div><dt>학교·학과</dt><dd id="detailSchool"></dd></div><div><dt>전시 일정</dt><dd id="detailDate"></dd></div><div><dt>전시 장소</dt><dd id="detailPlace"></dd></div><div><dt>주소</dt><dd id="detailAddress"></dd></div><div><dt>분류</dt><dd id="detailType"></dd></div></dl><div id="detailPoster"></div>
+  <dl class="modal-data"><div><dt>학교·학과</dt><dd id="detailSchool"></dd></div><div><dt>전시 일정</dt><dd id="detailDate"></dd></div><div><dt>전시 장소</dt><dd id="detailPlace"></dd></div><div><dt>주소</dt><dd id="detailAddress"></dd></div><div id="detailInstagramRow" hidden><dt>인스타그램</dt><dd id="detailInstagram"></dd></div><div><dt>분류</dt><dd id="detailType"></dd></div></dl><div id="detailPoster"></div>
   <div class="modal-actions"><a class="primary-btn" id="detailGoogle" href="#" target="_blank" rel="noopener noreferrer">구글 지도에서 보기 ↗</a><button type="button" class="secondary-btn" id="detailSave">즐겨찾기 저장</button></div>
   <p class="modal-hint">※ 지도 좌표는 안내용입니다. 교내 실제 전시실과 관람 가능 시간은 방문 전 확인해 주세요.</p>
 </div></dialog>
@@ -890,7 +893,7 @@
     "hours": "",
     "opening": "",
     "sourceRow": 3,
-    "exhibitionTitle": "2026학년도 졸업전시 (개별 전시명 미확인)",
+    "exhibitionTitle": "EXPANSION",
     "school": "홍익대학교",
     "department": "섬유미술패션디자인과",
     "category": "패션",
@@ -914,7 +917,7 @@
       3
     ],
     "source": "사용자 제공 졸전리스트 정리 · 공식 공지 추가 검증 전",
-    "notes": "개별 전시 제목 미확인",
+    "notes": "",
     "cardLocation": "홍익대학교 문헌관 4층 현대미술관",
     "cardDate": "10.19–10.24",
     "dateText": "2026-10-19 ~ 2026-10-24",
@@ -1332,7 +1335,7 @@
         "sourceRow": 10
       }
     ],
-    "instagram": "https://www.instagram.com/kmuceramics.2026/",
+    "instagram": "https://www.instagram.com/kmuceramics_official/",
     "label": "",
     "hours": "매일 10:30–18:30",
     "opening": "2026-10-28 18:00",
@@ -1430,7 +1433,8 @@
     "opening": "2026-10-28 17:00",
     "sourceRows": [
       12
-    ]
+    ],
+    "posterUrl": "images/서경대비주얼디자인.webp"
   },
   {
     "id": "new24-12",
@@ -1798,7 +1802,8 @@
     "opening": "",
     "sourceRows": [
       20
-    ]
+    ],
+    "posterUrl": "images/국민대입체미술.webp"
   },
   {
     "id": "sheet-35",
@@ -1889,7 +1894,8 @@
     "opening": "",
     "sourceRows": [
       22
-    ]
+    ],
+    "posterUrl": "images/성균관대써피스디자인.webp"
   },
   {
     "id": "sheet-09",
@@ -2118,7 +2124,8 @@
     "opening": "2026-11-04 17:00",
     "sourceRows": [
       27
-    ]
+    ],
+    "posterUrl": "images/수원대공예디자인.webp"
   },
   {
     "id": "khud",
@@ -2458,7 +2465,8 @@
     "opening": "2026-11-09 17:00",
     "sourceRows": [
       34
-    ]
+    ],
+    "posterUrl": "images/충남대디자인창의학과도자섬유.webp"
   },
   {
     "id": "hongik",
@@ -2702,7 +2710,8 @@
     "opening": "",
     "sourceRows": [
       40
-    ]
+    ],
+    "posterUrl": "images/건국대미디어콘텐츠.webp"
   },
   {
     "id": "sheet-26",
@@ -2790,7 +2799,7 @@
         "opening": ""
       }
     ],
-    "posterUrl": "images/건국대산업디자인.webp"
+    "posterUrl": "images/건국대글로벌캠산업디자인.webp"
   },
   {
     "id": "sheet-41",
@@ -2929,7 +2938,8 @@
     "opening": "",
     "sourceRows": [
       45
-    ]
+    ],
+    "posterUrl": "images/공주대주얼리금속.webp"
   },
   {
     "id": "sheet-13",
@@ -3019,7 +3029,8 @@
     "opening": "",
     "sourceRows": [
       47
-    ]
+    ],
+    "posterUrl": "images/과기대도예.webp"
   },
   {
     "id": "sheet-23",
@@ -3065,7 +3076,8 @@
     "opening": "2026-11-18 17:00",
     "sourceRows": [
       48
-    ]
+    ],
+    "posterUrl": "images/서울시립산디.webp"
   },
   {
     "id": "sheet-05",
@@ -3950,6 +3962,8 @@
     $('#detailDate').textContent = d.dateText || '2026.' + formatDate(d.start) + ' — ' + formatDate(d.end);
     $('#detailPlace').textContent = d.cardLocation || d.venue;
     $('#detailAddress').textContent = [...new Set(sessionsOf(d).map(x => x.address))].join(' / ');
+    $('#detailInstagram').innerHTML = instagramMarkup(d);
+    $('#detailInstagramRow').hidden = !$('#detailInstagram').querySelector('a');
     $('#detailType').textContent = d.category;
     $('#detailPoster').innerHTML = posterMarkup(d, false);
     $('#detailGoogle').href = googleUrl(d);
