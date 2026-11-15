@@ -583,9 +583,6 @@
     .weekly-toggle:hover { border-color: #E7E7E470; }
     .weekly-toggle[aria-pressed="true"] { background: #E7E7E4; color: #0B0C0E; border-color: #E7E7E4; }
     .weekly-bar + .archive { padding-top: 48px; }
-    .network-marker.is-weekly .network-dot, .fallback-pin.is-weekly .network-dot {
-      width: 10px; height: 10px; background: var(--category-fill,var(--network)); box-shadow: none;
-    }
     @media(max-width:700px) {
       .weekly-bar { margin-top: 36px; }
       .weekly-toggle { min-height: 50px; padding: 14px 18px; font-size: 14px; }
@@ -7508,7 +7505,7 @@
   const categoryColors = {'디자인':'#C4FF00','금속':'#00E5FF','도예':'#FF8A24','회화':'#FF56CB','조소':'#5485FF','공예':'#35F28B','패션':'#B88AFF'};
   const categoryColor = d => categoryColors[d.category] || '#E7E7E4';
   function savedPlaceFill(arr) {
-    const colors = [...new Set(arr.filter(d => state.weekly || saved.has(d.id)).map(categoryColor))];
+    const colors = [...new Set(arr.filter(d => saved.has(d.id)).map(categoryColor))];
     if (colors.length < 2) return colors[0] || '#E7E7E4';
     return `conic-gradient(${colors.map((c,i) => `${c} ${i*100/colors.length}% ${(i+1)*100/colors.length}%`).join(',')})`;
   }
@@ -7543,6 +7540,15 @@
   function status(d) { return today < d.start ? ['예정',''] : today > d.end ? ['종료',''] : ['전시 중','live']; }
   function googleUrl(d) { return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.venue + ' ' + d.address); }
   function sessionsOf(d) { return d.sessions || [d]; }
+  function hasEnded(d) {
+    const sessions = sessionsOf(d);
+    return sessions.length > 0 && sessions.every(s => s.end && s.end < today);
+  }
+  function endedLast(items, isEnded) {
+    const current = [], ended = [];
+    for (const item of items) (isEnded(item) ? ended : current).push(item);
+    return current.concat(ended);
+  }
   function matchesPeriod(session) {
     if (state.weekly && !overlapsWeek(session)) return false;
     if (!session.start || !session.end) return state.month === 'all';
@@ -7571,7 +7577,7 @@
   function arrowIcon() { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>`; }
 
   function renderCards() {
-    const shows = filteredShows();
+    const shows = endedLast(filteredShows(), hasEnded);
     $('#resultCount').textContent = shows.length;
     $('#cards').innerHTML = shows.length ? shows.map(d => {
       const displayName = `${d.school} ${d.department}`;
@@ -7738,7 +7744,7 @@
     $('#fallbackPins').innerHTML = groups.map(arr => {
       const d = arr[0], [x,y] = point(d);
       if (x < 20 || x > width - 20 || y < 65 || y > height - 100) return '';
-      return `<button type="button" class="fallback-pin ${arr.some(s => saved.has(s.id)) ? 'is-saved' : ''}${state.weekly ? ' is-weekly' : ''}" style="left:${x}px;top:${y}px;--category-fill:${savedPlaceFill(arr)}" data-place="${d.placeId}" aria-label="${escapeHTML(arr.map(s => s.school + ' ' + s.department).join(', '))} 전시 위치"><span class="network-dot" aria-hidden="true"></span></button>`;
+      return `<button type="button" class="fallback-pin ${!state.weekly && arr.some(s => saved.has(s.id)) ? 'is-saved' : ''}" style="left:${x}px;top:${y}px;--category-fill:${savedPlaceFill(arr)}" data-place="${d.placeId}" aria-label="${escapeHTML(arr.map(s => s.school + ' ' + s.department).join(', '))} 전시 위치"><span class="network-dot" aria-hidden="true"></span></button>`;
     }).join('');
     $('#fallbackPins').querySelectorAll('[data-place]').forEach(b => b.addEventListener('click', () => {
       const arr = groups.find(g => g[0].placeId === b.dataset.place);
@@ -7807,7 +7813,7 @@
     markers.forEach(m => leafletMap.removeLayer(m)); markers = [];
     groups.forEach(arr => {
       const d = arr[0], isSaved = arr.some(s => saved.has(s.id));
-      const icon = L.divIcon({className:'network-marker' + (isSaved ? ' is-saved' : '') + (state.weekly ? ' is-weekly' : ''), html:`<span class="network-dot" style="--category-fill:${savedPlaceFill(arr)}"></span>`, iconSize:[36,36], iconAnchor:[18,18]});
+      const icon = L.divIcon({className:'network-marker' + (!state.weekly && isSaved ? ' is-saved' : ''), html:`<span class="network-dot" style="--category-fill:${savedPlaceFill(arr)}"></span>`, iconSize:[36,36], iconAnchor:[18,18]});
       const label = arr.map(x => x.school + ' ' + x.department).join(', ') + ' 전시 위치';
       const marker = L.marker([d.lat,d.lng], {icon, placeId:d.placeId, title:'', alt:label}).addTo(leafletMap).bindPopup(popupHTML(arr), mapPopupOptions());
       marker.getElement().setAttribute('aria-label', label);
@@ -7888,7 +7894,8 @@
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(d);
     }
-    $('#posterGrid').innerHTML = [...groups.values()].map(shows => {
+    const posterGroups = endedLast(groups.values(), shows => shows.every(hasEnded));
+    $('#posterGrid').innerHTML = posterGroups.map(shows => {
       const schools = new Map();
       for (const d of shows) {
         if (!schools.has(d.school)) schools.set(d.school, new Set());
